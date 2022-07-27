@@ -14,7 +14,9 @@ Coded by www.creative-tim.com
 */
 
 // react-router-dom components
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useState } from "react";
 
 // @mui material components
 import Card from "@mui/material/Card";
@@ -33,6 +35,15 @@ import CoverLayout from "layouts/authentication/components/CoverLayout";
 import bgImage from "assets/images/bg-sign-up-cover.jpeg";
 
 function Cover() {
+  const [confirm, setconfirm] = useState(false);
+  const [username, setusername] = useState("");
+  const [password, setpassword] = useState("");
+  const [email, setemail] = useState("");
+  const [firstName, setfirstName] = useState("");
+  const [lastName, setlastName] = useState("");
+  const handleSetconfirm = () => setconfirm(!confirm);
+  const navigate = useNavigate();
+
   return (
     <CoverLayout image={bgImage}>
       <Card>
@@ -51,22 +62,53 @@ function Cover() {
             Join us today
           </MDTypography>
           <MDTypography display="block" variant="button" color="white" my={1}>
-            Enter your email and password to register
+            Enter your details to register
           </MDTypography>
         </MDBox>
         <MDBox pt={4} pb={3} px={3}>
           <MDBox component="form" role="form">
             <MDBox mb={2}>
-              <MDInput type="text" label="Name" variant="standard" fullWidth />
+              <MDInput
+                type="text"
+                label="Username"
+                onChange={(event) => setusername(event.target.value)}
+                fullWidth
+              />
             </MDBox>
             <MDBox mb={2}>
-              <MDInput type="email" label="Email" variant="standard" fullWidth />
+              <MDInput
+                type="text"
+                label="FirstName"
+                onChange={(event) => setfirstName(event.target.value)}
+                fullWidth
+              />
             </MDBox>
             <MDBox mb={2}>
-              <MDInput type="password" label="Password" variant="standard" fullWidth />
+              <MDInput
+                type="text"
+                label="LastName"
+                onChange={(event) => setlastName(event.target.value)}
+                fullWidth
+              />
+            </MDBox>
+            <MDBox mb={2}>
+              <MDInput
+                type="email"
+                label="Email"
+                onChange={(event) => setemail(event.target.value)}
+                fullWidth
+              />
+            </MDBox>
+            <MDBox mb={2}>
+              <MDInput
+                type="password"
+                label="Password"
+                onChange={(event) => setpassword(event.target.value)}
+                fullWidth
+              />
             </MDBox>
             <MDBox display="flex" alignItems="center" ml={-1}>
-              <Checkbox />
+              <Checkbox onClick={handleSetconfirm} />
               <MDTypography
                 variant="button"
                 fontWeight="regular"
@@ -87,8 +129,34 @@ function Cover() {
               </MDTypography>
             </MDBox>
             <MDBox mt={4} mb={1}>
-              <MDButton variant="gradient" color="info" fullWidth>
-                sign in
+              <MDButton
+                variant="gradient"
+                color="info"
+                fullWidth
+                onClick={() =>
+                  confirm
+                    ? axios
+                        .post(`http://localhost:2400/register`, {
+                          username,
+                          password,
+                          email,
+                          firstName,
+                          lastName,
+                        })
+                        .then((res) => res.data)
+                        .then((data) => {
+                          console.log(data);
+                          if (data.success) {
+                            alert("great!! wait for admin to aprove");
+                            navigate("/home");
+                          } else {
+                            alert(data.msg);
+                          }
+                        })
+                    : alert("you need to confirm")
+                }
+              >
+                sign up
               </MDButton>
             </MDBox>
             <MDBox mt={3} mb={1} textAlign="center">
