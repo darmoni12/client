@@ -15,6 +15,7 @@ Coded by www.creative-tim.com
 
 // @mui material components
 import Card from "@mui/material/Card";
+import axios from "axios";
 // import Divider from "@mui/material/Divider";
 // import Icon from "@mui/material/Icon";
 
@@ -25,13 +26,20 @@ import MDTypography from "components/MDTypography";
 
 // Billing page components
 import Transaction from "layouts/billing/components/Transaction";
+import { useState } from "react";
 
 function Transactions() {
-  let transactions = [
-    { amount: 98, name: "royi", date: "21.2" },
-    { amount: -78, name: "darmon", date: "21.3" },
-  ];
-  transactions = transactions.map((x) => (
+  // let transactions;
+  const [transactions, setTransactions] = useState([]);
+  axios("http://localhost:2400/user/getUserTransactions", { withCredentials: true }).then((res) => {
+    setTransactions(res.data.msg);
+    console.log("transactions", res.data.msg);
+  });
+  // [
+  //   { amount: 98, name: "royi", date: "21.2" },
+  //   { amount: -78, name: "darmon", date: "21.3" },
+  // ];
+  const showtransactions = transactions.map((x) => (
     <Transaction
       color={x.amount < 0 ? "error" : "success"}
       icon={x.amount < 0 ? "expand_more" : "expand_less"}
@@ -56,7 +64,7 @@ function Transactions() {
           m={0}
           sx={{ listStyle: "none" }}
         >
-          {transactions}
+          {showtransactions}
         </MDBox>
       </MDBox>
     </Card>

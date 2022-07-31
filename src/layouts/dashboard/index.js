@@ -24,20 +24,54 @@ import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import ReportsBarChart from "examples/Charts/BarCharts/ReportsBarChart";
-import ReportsLineChart from "examples/Charts/LineCharts/ReportsLineChart";
+// import ReportsLineChart from "examples/Charts/LineCharts/ReportsLineChart";
 import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
+import axios from "axios";
 
 // Data
-import reportsBarChartData from "layouts/dashboard/data/reportsBarChartData";
-import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
+// import reportsBarChartData from "layouts/dashboard/data/reportsBarChartData";
+// import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
 
 // Dashboard components
 import Projects from "layouts/dashboard/components/Projects";
 import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
+import { useState, useEffect } from "react";
+// import { useEffect } from "react";
 
 function Dashboard() {
-  const { sales, tasks } = reportsLineChartData;
-
+  // const { saless, tasks } = reportsLineChartData;
+  // const tasks = [];
+  const chartTamplate = {label:[],data:[],}
+  const [yearChart, setYearChart] = useState({});
+  const [monthChart, setMonthChart] = useState({});
+  const [weekChart, setWeekChart] = useState({});
+  useEffect(() => {
+    axios("http://localhost:2400/user/getTransactionsOfLastYear", {
+      withCredentials: true,
+    })
+    .then(res => res.data.msg)
+    .then((res) => {
+      setYearChart(res)
+    });
+  }, []);
+  useEffect(() => {
+    axios("http://localhost:2400/user/getTransactionsOfLastMonth", {
+      withCredentials: true,
+    })
+    .then(res => res.data.msg)
+    .then((res) => {
+      setMonthChart(res)
+    });
+  }, []);
+  useEffect(() => {
+    axios("http://localhost:2400/user/getTransactionsOfLastWeek", {
+      withCredentials: true,
+    })
+    .then(res => res.data.msg)
+    .then((res) => {
+      setWeekChart(res)
+    });
+  }, []);
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -109,36 +143,32 @@ function Dashboard() {
               <MDBox mb={3}>
                 <ReportsBarChart
                   color="info"
-                  title="website views"
-                  description="Last Campaign Performance"
-                  date="campaign sent 2 days ago"
-                  chart={reportsBarChartData}
+                  title="last period"
+                  description="Last 12 monthly profit"
+                  date="just update"
+                  chart={yearChart}
                 />
               </MDBox>
             </Grid>
             <Grid item xs={12} md={6} lg={4}>
               <MDBox mb={3}>
-                <ReportsLineChart
+                <ReportsBarChart
                   color="success"
-                  title="daily sales"
-                  description={
-                    <>
-                      (<strong>+15%</strong>) increase in today sales.
-                    </>
-                  }
-                  date="updated 4 min ago"
-                  chart={sales}
+                  title="last month"
+                  description="your last month daily profit"
+                  date="just update"
+                  chart={monthChart}
                 />
               </MDBox>
             </Grid>
             <Grid item xs={12} md={6} lg={4}>
               <MDBox mb={3}>
-                <ReportsLineChart
+                <ReportsBarChart
                   color="dark"
-                  title="completed tasks"
-                  description="Last Campaign Performance"
+                  title="last week"
+                  description="your last week daily profit"
                   date="just updated"
-                  chart={tasks}
+                  chart={weekChart}
                 />
               </MDBox>
             </Grid>

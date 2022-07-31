@@ -135,17 +135,20 @@ function Cover() {
                 fullWidth
                 onClick={() =>
                   confirm
-                    ? axios
-                        .post(`http://localhost:2400/register`, {
-                          username,
-                          password,
-                          email,
-                          firstName,
-                          lastName,
-                        })
+                    ? axios.post(
+                          `http://localhost:2400/register`,
+                          {
+                            username,
+                            password,
+                            email,
+                            firstName,
+                            lastName,
+                          },
+                          { withCredentials: true }
+                        )
                         .then((res) => res.data)
                         .then((data) => {
-                          console.log(data);
+                          // console.log(data);
                           if (data.success) {
                             alert("great!! wait for admin to aprove");
                             navigate("/home");

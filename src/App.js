@@ -35,6 +35,7 @@ import store from "./store";
 export default function App() {
   // const [logedin] = useState(true);
   // const routes = store.getState().user ? allroutes.logedInRoutes : allroutes.logedOffRoutes;
+  console.log("store.getState()", store.getState());
   const [controller, dispatch] = useMaterialUIController();
   const {
     miniSidenav,

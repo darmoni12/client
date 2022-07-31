@@ -31,6 +31,8 @@ import DataTable from "examples/Tables/DataTable";
 import authorsTableData from "layouts/tables/data/authorsTableData";
 import projectsTableData from "layouts/tables/data/projectsTableData";
 
+import Chat from "./chat"
+
 function Tables() {
   const { columns, rows } = authorsTableData();
   const { columns: pColumns, rows: pRows } = projectsTableData();
@@ -39,7 +41,22 @@ function Tables() {
     <DashboardLayout>
       <DashboardNavbar />
       <MDBox pt={6} pb={3}>
-        <Grid container spacing={6}>
+        <Grid container spacing={6}>        
+          <Grid item xs={12}>
+
+            <Card>
+
+            <MDBox
+                mx={2}
+                mt={3}
+                py={3}
+                px={2}
+              >
+                <Chat />
+              </MDBox>
+            </Card>
+
+          </Grid>
           <Grid item xs={12}>
             <Card>
               <MDBox

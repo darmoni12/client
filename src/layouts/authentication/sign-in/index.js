@@ -121,11 +121,14 @@ function Basic() {
                 color="info"
                 fullWidth
                 onClick={() =>
-                  axios
-                    .post(`http://localhost:2400/login`, {
-                      username,
-                      password,
-                    })
+                  axios.post(
+                      `http://localhost:2400/login`,
+                      {
+                        username,
+                        password,
+                      },
+                      { withCredentials: true }
+                    )
                     .then((res) => res.data)
                     .then((res) => {
                       if (res.success) {
