@@ -38,8 +38,12 @@ import DefaultProjectCard from "examples/Cards/ProjectCards/DefaultProjectCard";
 import Header from "layouts/profile/components/Header";
 import PlatformSettings from "layouts/profile/components/PlatformSettings";
 
+import axios from "axios";
+import { useState, useEffect } from "react";
+
+
 // Data
-import profilesListData from "layouts/profile/data/profilesListData";
+// import profilesListData from "layouts/profile/data/profilesListData";
 
 // Images
 import homeDecor1 from "assets/images/home-decor-1.jpg";
@@ -55,6 +59,42 @@ import store from "../../store";
   // const user = store.getstate().user
 
 function Overview() {
+  const [users,setUsers] = useState([])
+  const [details,setdetails] = useState({})
+  useEffect(() => {
+    axios(`http://localhost:2400/user/details`, { withCredentials: true })
+      .then(res => res.data.user)
+      .then((res) => {
+        console.log(res)
+        setdetails({
+          _id: res._id,
+          FirstName: res.firstName,
+          LastName: res.lastName,
+          Username: res.username,
+          Email: res.email
+        })
+      });
+}, []);
+
+  useEffect(() => {
+    axios(`http://localhost:2400/message/getUsersContact`, { withCredentials: true })
+      .then(res => res.data.msg)
+      .then((res) => {
+        console.log(res)
+        setUsers(res.map(x => ({
+          image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPZhNRDiy_4OCcPy_4ujFxO-pqK461OGjdfw&usqp=CAU',
+          name: x.username,
+          description: "Hi! I need more information..",
+          action: {
+            type: "internal",
+            route: "/pages/profile/profile-overview",
+            color: "info",
+            label: "reply",
+          },
+        })
+        ))
+      });
+  }, []);
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -62,36 +102,42 @@ function Overview() {
       <Header>
         <MDBox mt={5} mb={3}>
           <Grid container spacing={1}>
-            <Grid item xs={12} md={6} xl={4}>
+            {/* <Grid item xs={12} md={6} xl={4}>
               <PlatformSettings />
-            </Grid>
+            </Grid> */}
             <Grid item xs={12} md={6} xl={4} sx={{ display: "flex" }}>
               <Divider orientation="vertical" sx={{ ml: -2, mr: 1 }} />
+              
               <ProfileInfoCard
+              
                 title="profile information"
-                description="Hi, I’m Alec Thompson, Decisions: If you can’t decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality)."
-                info={{
-                  fullName: "Alec M. Thompson",
-                  mobile: "(44) 123 1234 123",
-                  email: "alecthompson@mail.com",
-                  location: "USA",
-                }}
+                description="hey there"
+                //"Hi, I’m Alec Thompson, Decisions: If you can’t decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality)."
+                info=
+                {details
+                //   {
+                //   fullName: "Alec M. Thompson",
+                //   //mobile: "(44) 123 1234 123",
+                //   email: "alecthompson@mail.com",
+                //   //location: "USA",
+                // }
+              }
                 social={[
-                  {
-                    link: "https://www.facebook.com/CreativeTim/",
-                    icon: <FacebookIcon />,
-                    color: "facebook",
-                  },
-                  {
-                    link: "https://twitter.com/creativetim",
-                    icon: <TwitterIcon />,
-                    color: "twitter",
-                  },
-                  {
-                    link: "https://www.instagram.com/creativetimofficial/",
-                    icon: <InstagramIcon />,
-                    color: "instagram",
-                  },
+                  // {
+                  //   link: "https://www.facebook.com/CreativeTim/",
+                  //   icon: <FacebookIcon />,
+                  //   color: "facebook",
+                  // },
+                  // {
+                  //   link: "https://twitter.com/creativetim",
+                  //   icon: <TwitterIcon />,
+                  //   color: "twitter",
+                  // },
+                  // {
+                  //   link: "https://www.instagram.com/creativetimofficial/",
+                  //   icon: <InstagramIcon />,
+                  //   color: "instagram",
+                  // },
                 ]}
                 action={{ route: "", tooltip: "Edit Profile" }}
                 shadow={false}
@@ -99,11 +145,11 @@ function Overview() {
               <Divider orientation="vertical" sx={{ mx: 0 }} />
             </Grid>
             <Grid item xs={12} xl={4}>
-              <ProfilesList title="conversations" profiles={profilesListData} shadow={false} />
+              <ProfilesList title="conversations" profiles={users} shadow={false} />
             </Grid>
           </Grid>
         </MDBox>
-        <MDBox pt={2} px={2} lineHeight={1.25}>
+        {/* <MDBox pt={2} px={2} lineHeight={1.25}>
           <MDTypography variant="h6" fontWeight="medium">
             Projects
           </MDTypography>
@@ -196,7 +242,7 @@ function Overview() {
               />
             </Grid>
           </Grid>
-        </MDBox>
+        </MDBox> */}
       </Header>
       <Footer />
     </DashboardLayout>

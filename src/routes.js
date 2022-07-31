@@ -24,10 +24,11 @@ import Notifications from "layouts/notifications";
 import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
+import NewTransaction from "layouts/new-transaction";
 
 // @mui icons
 import Icon from "@mui/material/Icon";
-import Logout from "layouts/authentication/components/logout";
+import Logout from "layouts/authentication/log-out";//"layouts/authentication/logout";
 
 const logedInRoutes = [
   {
@@ -72,10 +73,18 @@ const logedInRoutes = [
   },
   {
     type: "collapse",
+    name: "new transaction",
+    key: "new-transaction",
+    icon: <Icon fontSize="small">send</Icon>,
+    route: "/newTransaction",
+    component: <NewTransaction />,
+  },
+  {
+    type: "collapse",
     name: "Log out",
     key: "log-out",
     icon: <Icon fontSize="small">logout</Icon>,
-    route: "/logout",
+    route: "/authentication/log-out",
     component: <Logout />,
   },
 ];
@@ -87,14 +96,6 @@ const logedOffRoutes = [
     icon: <Icon fontSize="small">dashboard</Icon>,
     route: "/dashboard",
     component: <Dashboard />,
-  },
-  {
-    type: "collapse",
-    name: "About Us",
-    key: "about-us",
-    icon: <Icon fontSize="small">login</Icon>,
-    route: "/authentication/about-us",
-    component: <SignIn />, // TODO:
   },
   {
     type: "collapse",

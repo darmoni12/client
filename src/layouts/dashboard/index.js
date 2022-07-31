@@ -39,9 +39,7 @@ import { useState, useEffect } from "react";
 // import { useEffect } from "react";
 
 function Dashboard() {
-  // const { saless, tasks } = reportsLineChartData;
-  // const tasks = [];
-  const chartTamplate = {label:[],data:[],}
+  
   const [yearChart, setYearChart] = useState({});
   const [monthChart, setMonthChart] = useState({});
   const [weekChart, setWeekChart] = useState({});

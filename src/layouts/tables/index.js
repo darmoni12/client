@@ -35,18 +35,18 @@ import Chat from "./chat"
 
 function Tables() {
   const { columns, rows } = authorsTableData();
-  const { columns: pColumns, rows: pRows } = projectsTableData();
-
+  // const { columns: pColumns, rows: pRows } = projectsTableData();
+  
   return (
     <DashboardLayout>
       <DashboardNavbar />
       <MDBox pt={6} pb={3}>
-        <Grid container spacing={6}>        
+        <Grid container spacing={6}>
           <Grid item xs={12}>
 
             <Card>
 
-            <MDBox
+              <MDBox
                 mx={2}
                 mt={3}
                 py={3}
@@ -84,7 +84,7 @@ function Tables() {
               </MDBox>
             </Card>
           </Grid>
-          <Grid item xs={12}>
+          {/* <Grid item xs={12}>
             <Card>
               <MDBox
                 mx={2}
@@ -110,7 +110,7 @@ function Tables() {
                 />
               </MDBox>
             </Card>
-          </Grid>
+          </Grid> */}
         </Grid>
       </MDBox>
       <Footer />

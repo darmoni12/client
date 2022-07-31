@@ -26,7 +26,11 @@ import team2 from "assets/images/team-2.jpg";
 import team3 from "assets/images/team-3.jpg";
 import team4 from "assets/images/team-4.jpg";
 
-export default function data() {
+import axios from "axios";
+
+import { useState, useEffect } from "react";
+
+export default function Data() {
   const Author = ({ image, name, email }) => (
     <MDBox display="flex" alignItems="center" lineHeight={1}>
       <MDAvatar src={image} name={name} size="sm" />
@@ -38,15 +42,19 @@ export default function data() {
       </MDBox>
     </MDBox>
   );
+  const [loans, setLoans] = useState([])
 
-  const Job = ({ title, description }) => (
-    <MDBox lineHeight={1} textAlign="left">
-      <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
-        {title}
-      </MDTypography>
-      <MDTypography variant="caption">{description}</MDTypography>
-    </MDBox>
-  );
+  useEffect(() => {
+    axios(`http://localhost:2400/user/getLoans`, { withCredentials: true })
+      .then(res => res.data.loans)
+      .then((res) => {
+        console.log(res)
+        setLoans(res.map(x => ({
+          
+        })
+        ))
+      });
+  }, []);
 
   return {
     columns: [
@@ -57,10 +65,10 @@ export default function data() {
       { Header: "action", accessor: "action", align: "center" },
     ],
 
-    rows: [
+    rows: loans.map(x=>(
       {
-        author: <Author image={team2} name="John Michael" email="john@creative-tim.com" />,
-        function: <Job title="Manager" description="Organization" />,
+        author: <Author image={x.image} name={x.username} email={x.email} />,
+        function: 'malve',
         status: (
           <MDBox ml={-1}>
             <MDBadge badgeContent="online" color="success" variant="gradient" size="sm" />
@@ -76,102 +84,104 @@ export default function data() {
             Edit
           </MDTypography>
         ),
-      },
-      {
-        author: <Author image={team3} name="Alexa Liras" email="alexa@creative-tim.com" />,
-        function: <Job title="Programator" description="Developer" />,
-        status: (
-          <MDBox ml={-1}>
-            <MDBadge badgeContent="offline" color="dark" variant="gradient" size="sm" />
-          </MDBox>
-        ),
-        employed: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            11/01/19
-          </MDTypography>
-        ),
-        action: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Edit
-          </MDTypography>
-        ),
-      },
-      {
-        author: <Author image={team4} name="Laurent Perrier" email="laurent@creative-tim.com" />,
-        function: <Job title="Executive" description="Projects" />,
-        status: (
-          <MDBox ml={-1}>
-            <MDBadge badgeContent="online" color="success" variant="gradient" size="sm" />
-          </MDBox>
-        ),
-        employed: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            19/09/17
-          </MDTypography>
-        ),
-        action: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Edit
-          </MDTypography>
-        ),
-      },
-      {
-        author: <Author image={team3} name="Michael Levi" email="michael@creative-tim.com" />,
-        function: <Job title="Programator" description="Developer" />,
-        status: (
-          <MDBox ml={-1}>
-            <MDBadge badgeContent="online" color="success" variant="gradient" size="sm" />
-          </MDBox>
-        ),
-        employed: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            24/12/08
-          </MDTypography>
-        ),
-        action: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Edit
-          </MDTypography>
-        ),
-      },
-      {
-        author: <Author image={team3} name="Richard Gran" email="richard@creative-tim.com" />,
-        function: <Job title="Manager" description="Executive" />,
-        status: (
-          <MDBox ml={-1}>
-            <MDBadge badgeContent="offline" color="dark" variant="gradient" size="sm" />
-          </MDBox>
-        ),
-        employed: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            04/10/21
-          </MDTypography>
-        ),
-        action: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Edit
-          </MDTypography>
-        ),
-      },
-      {
-        author: <Author image={team4} name="Miriam Eric" email="miriam@creative-tim.com" />,
-        function: <Job title="Programator" description="Developer" />,
-        status: (
-          <MDBox ml={-1}>
-            <MDBadge badgeContent="offline" color="dark" variant="gradient" size="sm" />
-          </MDBox>
-        ),
-        employed: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            14/09/20
-          </MDTypography>
-        ),
-        action: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Edit
-          </MDTypography>
-        ),
-      },
-    ],
-  };
+      }))
+      
+      // ,
+      // {
+      //   author: <Author image={team3} name="Alexa Liras" email="alexa@creative-tim.com" />,
+      //   function: 'malve',
+      //   status: (
+      //     <MDBox ml={-1}>
+      //       <MDBadge badgeContent="offline" color="dark" variant="gradient" size="sm" />
+      //     </MDBox>
+      //   ),
+      //   employed: (
+      //     <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
+      //       11/01/19
+      //     </MDTypography>
+      //   ),
+      //   action: (
+      //     <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
+      //       Edit
+      //     </MDTypography>
+      //   ),
+      // },
+      // {
+      //   author: <Author image={team4} name="Laurent Perrier" email="laurent@creative-tim.com" />,
+      //   function:'malve',
+      //   status: (
+      //     <MDBox ml={-1}>
+      //       <MDBadge badgeContent="online" color="success" variant="gradient" size="sm" />
+      //     </MDBox>
+      //   ),
+      //   employed: (
+      //     <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
+      //       19/09/17
+      //     </MDTypography>
+      //   ),
+      //   action: (
+      //     <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
+      //       Edit
+      //     </MDTypography>
+      //   ),
+      // },
+      // {
+      //   author: <Author image={team3} name="Michael Levi" email="michael@creative-tim.com" />,
+      //   function: 'malve',
+      //   status: (
+      //     <MDBox ml={-1}>
+      //       <MDBadge badgeContent="online" color="success" variant="gradient" size="sm" />
+      //     </MDBox>
+      //   ),
+      //   employed: (
+      //     <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
+      //       24/12/08
+      //     </MDTypography>
+      //   ),
+      //   action: (
+      //     <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
+      //       Edit
+      //     </MDTypography>
+      //   ),
+      // },
+      // {
+      //   author: <Author image={team3} name="Richard Gran" email="richard@creative-tim.com" />,
+      //   function: 'malve',
+      //   status: (
+      //     <MDBox ml={-1}>
+      //       <MDBadge badgeContent="offline" color="dark" variant="gradient" size="sm" />
+      //     </MDBox>
+      //   ),
+      //   employed: (
+      //     <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
+      //       04/10/21
+      //     </MDTypography>
+      //   ),
+      //   action: (
+      //     <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
+      //       Edit
+      //     </MDTypography>
+      //   ),
+      // },
+      // {
+      //   author: <Author image={team4} name="Miriam Eric" email="miriam@creative-tim.com" />,
+      //   function: 'malve',
+      //   status: (
+      //     <MDBox ml={-1}>
+      //       <MDBadge badgeContent="offline" color="dark" variant="gradient" size="sm" />
+      //     </MDBox>
+      //   ),
+      //   employed: (
+      //     <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
+      //       14/09/20
+      //     </MDTypography>
+      //   ),
+      //   action: (
+      //     <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
+      //       Edit
+      //     </MDTypography>
+      //   ),
+      // },
+    // })
+    }
 }

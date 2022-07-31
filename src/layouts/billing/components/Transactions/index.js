@@ -35,15 +35,11 @@ function Transactions() {
     setTransactions(res.data.msg);
     console.log("transactions", res.data.msg);
   });
-  // [
-  //   { amount: 98, name: "royi", date: "21.2" },
-  //   { amount: -78, name: "darmon", date: "21.3" },
-  // ];
   const showtransactions = transactions.map((x) => (
     <Transaction
       color={x.amount < 0 ? "error" : "success"}
       icon={x.amount < 0 ? "expand_more" : "expand_less"}
-      name={x.name}
+      name={x.member}
       description={x.date}
       value={`${x.amount} $`}
     />
