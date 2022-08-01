@@ -25,10 +25,13 @@ import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
 import NewTransaction from "layouts/new-transaction";
+import LoanRequest from "layouts/loan-request";
+import Logout from "layouts/authentication/log-out";
+import Admin from "layouts/admin";
 
 // @mui icons
 import Icon from "@mui/material/Icon";
-import Logout from "layouts/authentication/log-out";//"layouts/authentication/logout";
+
 
 const logedInRoutes = [
   {
@@ -78,6 +81,22 @@ const logedInRoutes = [
     icon: <Icon fontSize="small">send</Icon>,
     route: "/newTransaction",
     component: <NewTransaction />,
+  },
+  {
+    type: "collapse",
+    name: "loan request",
+    key: "loan-request",
+    icon: <Icon fontSize="small">send</Icon>,
+    route: "/loanRequest",
+    component: <LoanRequest />,
+  },
+  {
+    type: "collapse",
+    name: "admin",
+    key: "admin",
+    icon: <Icon fontSize="small">admin</Icon>,
+    route: "/admin",
+    component: <Admin />,
   },
   {
     type: "collapse",

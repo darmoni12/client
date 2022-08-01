@@ -48,9 +48,9 @@ import store from "store";
 
 function Basic() {
     const [users, setUsers] = useState([])
-
-    const [amount, setAmount] = useState("");
-    const [sendTo, setSendTo] = useState("");
+    const [info, setInfo] = useState("");
+    const [amount, setAmount] = useState(0);
+    const [askFor, setAskFor] = useState("");
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -80,7 +80,7 @@ function Basic() {
                     textAlign="center"
                 >
                     <MDTypography variant="h4" fontWeight="medium" color="white" mt={1}>
-                        send money
+                        requst loan
                     </MDTypography>
                     <Grid container spacing={3} justifyContent="center" sx={{ mt: 1, mb: 2 }}>
                         <Grid item xs={2}>
@@ -111,15 +111,23 @@ function Basic() {
                             />
                         </MDBox>
                         <MDBox mb={2}>
+                            <MDInput
+                                type="text"
+                                label="info"
+                                onChange={(event) => setInfo(event.target.value)}
+                                fullWidth
+                            />
+                        </MDBox>
+                        <MDBox mb={2}>
                             <Autocomplete
                                 disablePortal
                                 id="combo-box-demo"
                                 options={users}
                                 onChange={(event, newValue) => {
-                                    setSendTo(newValue._id);
+                                    setAskFor(newValue._id);
                                 }}
                                 sx={{ width: 300 }}
-                                renderInput={(params) => <TextField {...params} label="User to send" />}
+                                renderInput={(params) => <TextField {...params} label="ask from" />}
                             />
 
                         </MDBox>
@@ -130,12 +138,13 @@ function Basic() {
                                 color="info"
                                 fullWidth
                                 onClick={() => {
-                                    console.log(amount, sendTo);
+                                    console.log(amount, askFor);
                                     axios.post(
                                         `http://localhost:2400/user/makeTransactions`,
                                         {
                                             amount,
-                                            _id : sendTo
+                                            loaner : askFor,
+                                            info
                                         },
                                         { withCredentials: true }
                                     )
@@ -150,7 +159,7 @@ function Basic() {
                                 }
                                 }
                             >
-                                send
+                                ask for loan
                             </MDButton>
                         </MDBox>
 

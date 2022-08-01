@@ -4,6 +4,7 @@ import ChatBubble from "./ChatBubble";
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
 
+import socketIOClient from "socket.io-client";
 
 
 const adminImage = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPZhNRDiy_4OCcPy_4ujFxO-pqK461OGjdfw&usqp=CAU';//'http://localhost:2400/public/adminImage';
@@ -40,6 +41,11 @@ function Chat() {
         image: myImage,
       }])
     );
+    const socket = socketIOClient('localhost:2400');
+
+    socket.emit('message', {text})
+    console.log("emit ",{text})
+
     axios.post("http://localhost:2400/message/postMessage",{userId:'62de61c3c6017e950dad7b9e', text, idTypeIsSender:true}, { withCredentials: true });
   }
   return (

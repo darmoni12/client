@@ -42,6 +42,9 @@ import BasicLayout from "layouts/authentication/components/BasicLayout";
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
 import store from "store";
 
+import socketIOClient from "socket.io-client";
+
+
 function Basic() {
   const [rememberMe, setRememberMe] = useState(false);
   const [username, setusername] = useState("");
@@ -120,15 +123,15 @@ function Basic() {
                 variant="gradient"
                 color="info"
                 fullWidth
-                onClick={() =>
+                onClick={() => {
                   axios.post(
-                      `http://localhost:2400/login`,
-                      {
-                        username,
-                        password,
-                      },
-                      { withCredentials: true }
-                    )
+                    `http://localhost:2400/login`,
+                    {
+                      username,
+                      password,
+                    },
+                    { withCredentials: true }
+                  )
                     .then((res) => res.data)
                     .then((res) => {
                       if (res.success) {
@@ -138,6 +141,15 @@ function Basic() {
                         alert("username or password is wrong");
                       }
                     })
+                  const socket = socketIOClient('localhost:2400');
+
+
+                  socket.on('message', (message) => {
+                    alert(message)
+
+                  })
+
+                }
                 }
               >
                 sign in
