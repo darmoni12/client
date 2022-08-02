@@ -56,16 +56,14 @@ import team3 from "assets/images/team-3.jpg";
 import team4 from "assets/images/team-4.jpg";
 import store from "../../store";
 
-  // const user = store.getstate().user
 
 function Overview() {
-  const [users,setUsers] = useState([])
   const [details,setdetails] = useState({})
   useEffect(() => {
     axios(`http://localhost:2400/user/details`, { withCredentials: true })
-      .then(res => res.data.user)
+      .then(res => res.data.msg)
       .then((res) => {
-        console.log(res)
+        console.log("profile",res)
         setdetails({
           _id: res._id,
           FirstName: res.firstName,
@@ -76,25 +74,7 @@ function Overview() {
       });
 }, []);
 
-  useEffect(() => {
-    axios(`http://localhost:2400/message/getUsersContact`, { withCredentials: true })
-      .then(res => res.data.msg)
-      .then((res) => {
-        console.log(res)
-        setUsers(res.map(x => ({
-          image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPZhNRDiy_4OCcPy_4ujFxO-pqK461OGjdfw&usqp=CAU',
-          name: x.username,
-          description: "Hi! I need more information..",
-          action: {
-            type: "internal",
-            route: "/pages/profile/profile-overview",
-            color: "info",
-            label: "reply",
-          },
-        })
-        ))
-      });
-  }, []);
+ 
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -115,37 +95,13 @@ function Overview() {
                 //"Hi, I’m Alec Thompson, Decisions: If you can’t decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality)."
                 info=
                 {details
-                //   {
-                //   fullName: "Alec M. Thompson",
-                //   //mobile: "(44) 123 1234 123",
-                //   email: "alecthompson@mail.com",
-                //   //location: "USA",
-                // }
               }
                 social={[
-                  // {
-                  //   link: "https://www.facebook.com/CreativeTim/",
-                  //   icon: <FacebookIcon />,
-                  //   color: "facebook",
-                  // },
-                  // {
-                  //   link: "https://twitter.com/creativetim",
-                  //   icon: <TwitterIcon />,
-                  //   color: "twitter",
-                  // },
-                  // {
-                  //   link: "https://www.instagram.com/creativetimofficial/",
-                  //   icon: <InstagramIcon />,
-                  //   color: "instagram",
-                  // },
                 ]}
                 action={{ route: "", tooltip: "Edit Profile" }}
                 shadow={false}
               />
               <Divider orientation="vertical" sx={{ mx: 0 }} />
-            </Grid>
-            <Grid item xs={12} xl={4}>
-              <ProfilesList title="conversations" profiles={users} shadow={false} />
             </Grid>
           </Grid>
         </MDBox>

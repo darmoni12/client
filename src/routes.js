@@ -28,12 +28,89 @@ import NewTransaction from "layouts/new-transaction";
 import LoanRequest from "layouts/loan-request";
 import Logout from "layouts/authentication/log-out";
 import Admin from "layouts/admin";
+import EditUser from "layouts/admin/editUser";
 
 // @mui icons
 import Icon from "@mui/material/Icon";
 
+export const links=[
+  {
+    type: "collapse",
+    name: "edit user",
+    key: "edit-user",
+    icon: <Icon fontSize="small">edit</Icon>,
+    route: "/edit-user",
+    component: <EditUser />,
+  },
+]
 
-const logedInRoutes = [
+export const userRoutes = [
+  {
+    type: "collapse",
+    name: "Dashboard",
+    key: "dashboard",
+    icon: <Icon fontSize="small">dashboard</Icon>,
+    route: "/dashboard",
+    component: <Dashboard />,
+  },
+  {
+    type: "collapse",
+    name: "Tables",
+    key: "tables",
+    icon: <Icon fontSize="small">table_view</Icon>,
+    route: "/tables",
+    component: <Tables />,
+  },
+  {
+    type: "collapse",
+    name: "Billing",
+    key: "billing",
+    icon: <Icon fontSize="small">receipt_long</Icon>,
+    route: "/billing",
+    component: <Billing />,
+  },
+  {
+    type: "collapse",
+    name: "Notifications",
+    key: "notifications",
+    icon: <Icon fontSize="small">notifications</Icon>,
+    route: "/notifications",
+    component: <Notifications />,
+  },
+  {
+    type: "collapse",
+    name: "Profile",
+    key: "profile",
+    icon: <Icon fontSize="small">person</Icon>,
+    route: "/profile",
+    component: <Profile />,
+  },
+  {
+    type: "collapse",
+    name: "new transaction",
+    key: "new-transaction",
+    icon: <Icon fontSize="small">send</Icon>,
+    route: "/newTransaction",
+    component: <NewTransaction />,
+  },
+  {
+    type: "collapse",
+    name: "loan request",
+    key: "loan-request",
+    icon: <Icon fontSize="small">send</Icon>,
+    route: "/loanRequest",
+    component: <LoanRequest />,
+  },
+  {
+    type: "collapse",
+    name: "Log out",
+    key: "log-out",
+    icon: <Icon fontSize="small">logout</Icon>,
+    route: "/authentication/log-out",
+    component: <Logout />,
+  },
+];
+export const adminRoutes = [
   {
     type: "collapse",
     name: "Dashboard",
@@ -107,7 +184,7 @@ const logedInRoutes = [
     component: <Logout />,
   },
 ];
-const logedOffRoutes = [
+export const logedOffRoutes = [
   {
     type: "collapse",
     name: "Dashboard",
@@ -133,6 +210,3 @@ const logedOffRoutes = [
     component: <SignUp />,
   },
 ];
-const routs = { logedInRoutes, logedOffRoutes };
-
-export default routs;

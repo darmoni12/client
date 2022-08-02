@@ -40,7 +40,8 @@ function Transactions() {
       color={x.amount < 0 ? "error" : "success"}
       icon={x.amount < 0 ? "expand_more" : "expand_less"}
       name={x.member}
-      description={x.date}
+      description={x.info}
+      date={x.date}
       value={`${x.amount} $`}
     />
   ));

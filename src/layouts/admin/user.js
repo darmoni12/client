@@ -18,6 +18,7 @@ import PropTypes from "prop-types";
 
 import axios from "axios";
 
+import { Link, useNavigate } from "react-router-dom";
 
 
 // @mui material components
@@ -27,15 +28,41 @@ import Icon from "@mui/material/Icon";
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDButton from "components/MDButton";
-import { Link, useNavigate } from "react-router-dom";
-
+import EditUser from "./editUser";
 // Material Dashboard 2 React context
 import { useMaterialUIController } from "context";
 
-function User({ username, email,id }) {
+import store from "store"
+
+function User({ username, email, id, isConfirmed }) {
+
   const [controller] = useMaterialUIController();
   const { darkMode } = controller;
   const navigate = useNavigate();
+  const secondbutton = isConfirmed ?
+    <MDButton variant="text" color={darkMode ? "white" : "dark"} onClick={() =>
+      {
+      store.dispatch({type:"change other user",user:id});
+      navigate('/edit-user',{id})
+      }
+    } >
+      <Icon>edit</Icon>&nbsp;edit
+    </MDButton>
+    :
+    <MDButton variant="text" color={darkMode ? "white" : "dark"} onClick={() =>
+      axios.post(`http://localhost:2400/admin/confirmUser`, { _id: id }, { withCredentials: true })
+    } >
+      <Icon>edit</Icon>&nbsp;confirm
+    </MDButton>;
+
+  const thirdbutton =  isConfirmed ?
+  <MDButton variant="text" color={darkMode ? "white" : "dark"} onClick={() =>
+    <EditUser></EditUser>
+    
+  } >
+    <Icon>message</Icon>&nbsp;chat
+  </MDButton>
+  : []
 
   return (
     <MDBox
@@ -63,27 +90,25 @@ function User({ username, email,id }) {
 
           <MDBox display="flex" alignItems="center" mt={{ xs: 2, sm: 0 }} ml={{ xs: -1.5, sm: 0 }}>
             <MDBox mr={1}>
-              <MDButton variant="text" color="error" onClick={()=>
-              {
-                console.log(id, "delete")
-              axios.post(`http://localhost:2400/admin/deleteUser`,{_id:id},{ withCredentials: true })
-              .then((res) => {
-                  navigate("/admin");
-              })
-              }} 
+              <MDButton variant="text" color="error" onClick={() => {
+                axios.post(`http://localhost:2400/admin/deleteUser`, { _id: id }, { withCredentials: true })
+                  .then((res) => {
+                    navigate("/admin");
+                  })
+              }}
               >
                 <Icon>delete</Icon>&nbsp;delete
               </MDButton>
             </MDBox>
-            <MDButton variant="text" color={darkMode ? "white" : "dark"} onClick={()=>
-              console.log()
-            } >
-              <Icon>edit</Icon>&nbsp;edit
-            </MDButton>
+
+            {secondbutton}
+            {thirdbutton}
+
           </MDBox>
+
         </MDBox>
         <MDBox mb={1} lineHeight={0}>
-          
+
         </MDBox>
         <MDBox mb={1} lineHeight={0}>
           <MDTypography variant="caption" color="text">
@@ -93,7 +118,7 @@ function User({ username, email,id }) {
             </MDTypography>
           </MDTypography>
         </MDBox>
-      
+
       </MDBox>
     </MDBox>
   );

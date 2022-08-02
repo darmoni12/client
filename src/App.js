@@ -22,7 +22,7 @@ import theme from "assets/theme";
 import themeDark from "assets/theme-dark";
 
 // Material Dashboard 2 React routes
-import allroutes from "routes";
+import { userRoutes, adminRoutes, logedOffRoutes,links } from "routes";
 
 // Material Dashboard 2 React contexts
 import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "context";
@@ -30,12 +30,13 @@ import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "co
 // Images
 import brandWhite from "assets/images/logo-ct.png";
 import brandDark from "assets/images/logo-ct-dark.png";
-import store from "./store";
+
+import axios from "axios";
+
+
 
 export default function App() {
-  // const [logedin] = useState(true);
-  // const routes = store.getState().user ? allroutes.logedInRoutes : allroutes.logedOffRoutes;
-  console.log("store.getState()", store.getState());
+
   const [controller, dispatch] = useMaterialUIController();
   const {
     miniSidenav,
@@ -49,6 +50,26 @@ export default function App() {
   } = controller;
   const [onMouseEnter, setOnMouseEnter] = useState(false);
   const { pathname } = useLocation();
+
+  const [user, setUser] = useState()
+  useEffect(() => {
+    const getUser =  async() => {
+      await axios(`http://localhost:2400/user/details`, { withCredentials: true })
+        .then(res => res.data.msg)
+        .then((res) => {
+          setUser(res)
+        })
+        .catch(error=> setUser(undefined))
+    };
+    getUser();
+
+    const intervalId = setInterval(() => {  //assign interval to a variable to clear it.
+      getUser();
+  
+    }, 1000)
+  
+    return () => clearInterval(intervalId); //This is important
+  }, []);
 
   // Open sidenav when mouse enter on mini sidenav
   const handleOnMouseEnter = () => {
@@ -65,7 +86,16 @@ export default function App() {
       setOnMouseEnter(false);
     }
   };
+  function temp() {
+    if (user) {
+      if (user.isAdmin) {
+        return adminRoutes
+      }
+      return userRoutes
+    }
+    return logedOffRoutes
 
+  }
   // Change the openConfigurator state
   const handleConfiguratorOpen = () => setOpenConfigurator(dispatch, !openConfigurator);
 
@@ -126,7 +156,7 @@ export default function App() {
             color={sidenavColor}
             brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
             brandName="Our Bank"
-            routes={store.getState().user ? allroutes.logedInRoutes : allroutes.logedOffRoutes}
+            routes={temp()}
             onMouseEnter={handleOnMouseEnter}
             onMouseLeave={handleOnMouseLeave}
           />
@@ -136,7 +166,9 @@ export default function App() {
       )}
       {layout === "vr" && <Configurator />}
       <Routes>
-        {getRoutes(store.getState().user ? allroutes.logedInRoutes : allroutes.logedOffRoutes)}
+
+        {getRoutes(temp())}
+        {getRoutes(links)}
         <Route path="*" element={<Navigate to="/dashboard" />} />
       </Routes>
     </ThemeProvider>

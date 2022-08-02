@@ -48,7 +48,7 @@ import store from "store";
 
 function Basic() {
     const [users, setUsers] = useState([])
-
+    const [info, setInfo] = useState("");
     const [amount, setAmount] = useState("");
     const [sendTo, setSendTo] = useState("");
     const navigate = useNavigate();
@@ -111,6 +111,14 @@ function Basic() {
                             />
                         </MDBox>
                         <MDBox mb={2}>
+                            <MDInput
+                                type="text"
+                                label="info"
+                                onChange={(event) => setInfo(event.target.value)}
+                                fullWidth
+                            />
+                        </MDBox>
+                        <MDBox mb={2}>
                             <Autocomplete
                                 disablePortal
                                 id="combo-box-demo"
@@ -135,7 +143,8 @@ function Basic() {
                                         `http://localhost:2400/user/makeTransactions`,
                                         {
                                             amount,
-                                            _id : sendTo
+                                            _id : sendTo,
+                                            info
                                         },
                                         { withCredentials: true }
                                     )

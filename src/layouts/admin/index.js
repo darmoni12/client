@@ -57,15 +57,17 @@ import team4 from "assets/images/team-4.jpg";
 import store from "../../store";
 import UsersList from "./userslist"
 
-// const user = store.getstate().user
 
 function Overview() {    
+
     const [pendingUsers, setPendingUsers] = useState([])
     const [activeUsers, setActiveUsers] = useState([])
 
+    
+
     useEffect(() => {
         axios(`http://localhost:2400/admin/getPendingUsers`, { withCredentials: true })
-            .then(res => res.data.users)
+            .then(res => res.data.msg)
             .then((res) => {
                 setPendingUsers(res)
             });

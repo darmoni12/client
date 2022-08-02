@@ -24,7 +24,7 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDButton from "components/MDButton";
 
-function Transaction({ color, icon, name, description, value }) {
+function Transaction({ color, icon, name, description,date, value }) {
   return (
     <MDBox key={name} component="li" py={1} pr={2} mb={1}>
       <MDBox display="flex" justifyContent="space-between" alignItems="center">
@@ -38,8 +38,11 @@ function Transaction({ color, icon, name, description, value }) {
             <MDTypography variant="button" fontWeight="medium" gutterBottom>
               {name}
             </MDTypography>
-            <MDTypography variant="caption" color="text" fontWeight="regular">
+            <MDTypography variant="button" fontWeight="medium" gutterBottom>
               {description}
+            </MDTypography>
+            <MDTypography variant="caption" color="text" fontWeight="regular">
+              {date}
             </MDTypography>
           </MDBox>
         </MDBox>

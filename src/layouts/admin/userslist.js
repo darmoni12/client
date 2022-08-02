@@ -27,6 +27,7 @@ import User from "./user";
 function UseringInformation(props) {
   console.log("props",props)
   const userShow = props.lst.map(x=><User
+    isConfirmed = {x.isConfirmed}
     username={x.username}
     email={x.email}
     id = {x._id}

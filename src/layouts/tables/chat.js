@@ -9,7 +9,7 @@ import socketIOClient from "socket.io-client";
 
 const adminImage = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPZhNRDiy_4OCcPy_4ujFxO-pqK461OGjdfw&usqp=CAU';//'http://localhost:2400/public/adminImage';
 const usserImage = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBZ_iwxqFhk3OdsNYldu0AZDwOKNs7W7t6UYaQ_aSTrryAPEYLDT4IXcAROCfi0DZp_MA&usqp=CAU';//'http://localhost:2400/public/usserImage';
-const isAdmin = false;//store.getState().user.isAdmin : 
+const isAdmin = false;
 const myImage = isAdmin ? adminImage : usserImage;
 const otherImage = isAdmin ? usserImage : adminImage;
 
