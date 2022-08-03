@@ -57,7 +57,7 @@ function Basic() {
         axios(`http://localhost:2400/message/getUsersContact`, { withCredentials: true })
             .then(res => res.data.msg)
             .then((res) => {
-                console.log(res)
+                // console.log(res)
                 setUsers(res.map(x => ({
                     label: x.username,
                     _id: x._id
@@ -138,7 +138,7 @@ function Basic() {
                                 color="info"
                                 fullWidth
                                 onClick={() => {
-                                    console.log(amount, askFor);
+                                    // console.log(amount, askFor);
                                     axios.post(
                                         `http://localhost:2400/user/makeTransactions`,
                                         {
@@ -150,9 +150,6 @@ function Basic() {
                                     )
                                         // .then((res) => res.data)
                                         .then((res) => {
-
-
-                                            console.log(res)
                                             navigate("/home");
                                         })
 

@@ -25,14 +25,18 @@ import { useRowSelect } from "react-table";
 import User from "./user";
 
 function UseringInformation(props) {
-  console.log("props",props)
+  // console.log("list props",props)
   const userShow = props.lst.map(x=><User
     isConfirmed = {x.isConfirmed}
     username={x.username}
     email={x.email}
     id = {x._id}
+    lastName={x.lastName}
+    firstName = {x.firstName}
+    onChat = {props.onChat}
+    image = {x.image}
+    key = {x._id}
   />)
-  console.log(userShow)
 
   return (
     <Card id="delete-account">

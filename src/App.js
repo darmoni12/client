@@ -22,7 +22,7 @@ import theme from "assets/theme";
 import themeDark from "assets/theme-dark";
 
 // Material Dashboard 2 React routes
-import { userRoutes, adminRoutes, logedOffRoutes,links } from "routes";
+import { userRoutes, adminRoutes, logedOffRoutes, links } from "routes";
 
 // Material Dashboard 2 React contexts
 import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "context";
@@ -53,21 +53,26 @@ export default function App() {
 
   const [user, setUser] = useState()
   useEffect(() => {
-    const getUser =  async() => {
+    const getUser = async () => {
       await axios(`http://localhost:2400/user/details`, { withCredentials: true })
         .then(res => res.data.msg)
         .then((res) => {
           setUser(res)
+
         })
-        .catch(error=> setUser(undefined))
+        .catch(error => 
+          {
+            setUser(undefined)
+          }
+        )
     };
     getUser();
 
     const intervalId = setInterval(() => {  //assign interval to a variable to clear it.
       getUser();
-  
+
     }, 1000)
-  
+
     return () => clearInterval(intervalId); //This is important
   }, []);
 

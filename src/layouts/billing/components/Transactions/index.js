@@ -33,7 +33,7 @@ function Transactions() {
   const [transactions, setTransactions] = useState([]);
   axios("http://localhost:2400/user/getUserTransactions", { withCredentials: true }).then((res) => {
     setTransactions(res.data.msg);
-    console.log("transactions", res.data.msg);
+    // console.log("transactions", res.data.msg);
   });
   const showtransactions = transactions.map((x) => (
     <Transaction

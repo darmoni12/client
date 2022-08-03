@@ -18,7 +18,7 @@
 
 // Material Dashboard 2 React layouts
 import Dashboard from "layouts/dashboard";
-import Tables from "layouts/tables";
+import Chat from "layouts/chat";
 import Billing from "layouts/billing";
 import Notifications from "layouts/notifications";
 import Profile from "layouts/profile";
@@ -29,6 +29,7 @@ import LoanRequest from "layouts/loan-request";
 import Logout from "layouts/authentication/log-out";
 import Admin from "layouts/admin";
 import EditUser from "layouts/admin/editUser";
+import EditProfile from "layouts/profile/edit-profile"
 
 // @mui icons
 import Icon from "@mui/material/Icon";
@@ -41,6 +42,14 @@ export const links=[
     icon: <Icon fontSize="small">edit</Icon>,
     route: "/edit-user",
     component: <EditUser />,
+  },
+  {
+    type: "collapse",
+    name: "edit profile",
+    key: "edit-profile",
+    icon: <Icon fontSize="small">edit</Icon>,
+    route: "/edit-profile",
+    component: <EditProfile />,
   },
 ]
 
@@ -55,11 +64,11 @@ export const userRoutes = [
   },
   {
     type: "collapse",
-    name: "Tables",
-    key: "tables",
-    icon: <Icon fontSize="small">table_view</Icon>,
-    route: "/tables",
-    component: <Tables />,
+    name: "Chat",
+    key: "chat",
+    icon: <Icon fontSize="small">message</Icon>,
+    route: "/chat",
+    component: <Chat />,
   },
   {
     type: "collapse",
@@ -118,14 +127,6 @@ export const adminRoutes = [
     icon: <Icon fontSize="small">dashboard</Icon>,
     route: "/dashboard",
     component: <Dashboard />,
-  },
-  {
-    type: "collapse",
-    name: "Tables",
-    key: "tables",
-    icon: <Icon fontSize="small">table_view</Icon>,
-    route: "/tables",
-    component: <Tables />,
   },
   {
     type: "collapse",

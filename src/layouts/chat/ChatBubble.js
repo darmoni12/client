@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, {  useState } from 'react';
 import PropTypes from 'prop-types'
 import './ChatBubble.css';
 
@@ -7,7 +7,7 @@ function ChatBubble(props) {
     const [newMessage, setNewMessage] = useState('')
 
     function getConversations(messages){
-        if (messages == undefined) {
+        if (messages === undefined) {
             return;
         }
 

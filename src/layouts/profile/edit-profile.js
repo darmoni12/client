@@ -16,7 +16,7 @@ Coded by www.creative-tim.com
 // react-router-dom components
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // @mui material components
 import Card from "@mui/material/Card";
@@ -37,7 +37,6 @@ import bgImage from "assets/images/bg-sign-up-cover.jpeg";
 
 function Cover() {
     const navigate = useNavigate();
-    const temp =useLocation();
     const props = useLocation().state;
     // console.log("edit user", props)
     const [username, setusername] = useState(props.username);
@@ -45,6 +44,20 @@ function Cover() {
     const [firstName, setfirstName] = useState(props.firstName);
     const [lastName, setlastName] = useState(props.lastName);
     const [image, setImage] = useState(props.image);
+
+    // useEffect(() => {
+    //     axios(`http://localhost:2400/user/details`, { withCredentials: true })
+    //         .then(res => res.data.msg)
+    //         .then((res) => {
+    //             // setUser(res)
+    //             setusername(res.username)
+    //             setemail(res.email)
+    //             setfirstName(res.firstName)
+    //             setlastName(res.lastName)
+    //             setImage(res.image)
+    //         })
+    // }, []);
+
 
     return (
         <CoverLayout image={bgImage}>
@@ -116,19 +129,18 @@ function Cover() {
                                 fullWidth
                                 onClick={() => {
                                     axios.post(///post patch
-                                        `http://localhost:2400/admin/updateUser`,
+                                        `http://localhost:2400/user/updateDetails`,
                                         {
                                             username,
                                             email,
                                             firstName,
-                                            lastName,
-                                            _id: props.id
+                                            lastName
                                         },
                                         { withCredentials: true }
                                     )
                                         // .then((res) => res.data)
                                         .then((data) => {
-                                            navigate("/admin")
+                                            navigate("/profile")
                                         })
 
                                 }

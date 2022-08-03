@@ -135,7 +135,7 @@ function Basic() {
                     .then((res) => res.data)
                     .then((res) => {
                       if (res.success) {
-                        store.dispatch({ type: "login", user: res.user });
+
                         navigate("/home");
                       } else {
                         alert("username or password is wrong");
@@ -145,8 +145,7 @@ function Basic() {
 
 
                   socket.on('message', (message) => {
-                    alert(message)
-
+                    alert(message.text)
                   })
 
                 }

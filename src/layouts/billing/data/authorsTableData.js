@@ -48,7 +48,7 @@ export default function Data() {
     axios(`http://localhost:2400/user/getLoans`, { withCredentials: true })
       .then(res => res.data.loans)
       .then((res) => {
-        console.log(res)
+        console.log("loans",res)
         setLoans(res.map(x => ({
           
         })

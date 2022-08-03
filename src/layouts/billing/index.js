@@ -19,6 +19,10 @@ import Grid from "@mui/material/Grid";
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
 
+import Card from "@mui/material/Card";
+import MDTypography from "components/MDTypography";
+import DataTable from "examples/Tables/DataTable";
+
 // Material Dashboard 2 React examples
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
@@ -32,18 +36,33 @@ import Invoices from "layouts/billing/components/Invoices";
 import BillingInformation from "layouts/billing/components/BillingInformation";
 import Transactions from "layouts/billing/components/Transactions";
 
+import Loans from "./loans"
+
+
+// Data
+import authorsTableData from "layouts/billing/data/authorsTableData";
+// import projectsTableData from "layouts/billing/data/projectsTableData";
+
 function Billing() {
+
   return (
     <DashboardLayout>
       <DashboardNavbar absolute isMini />
       <MDBox mt={8}>
         <MDBox mb={3}>
           <Grid container spacing={3}>
-            <Grid item xs={12} lg={8}>
+
+            <Loans/>
+            <Grid item xs={12}>
               <Grid container spacing={3}>
-                <Grid item xs={12} xl={6}>
+                {/* <Grid item xs={12} xl={6}>
                   <MasterCard number={4562112245947852} holder="jack peterson" expires="11/22" />
+                </Grid> */}
+                
+                <Grid item xs={12} md={8}>
+                  <Transactions />
                 </Grid>
+                
                 <Grid item xs={12} md={6} xl={3}>
                   <DefaultInfoCard
                     icon="account_balance"
@@ -60,26 +79,24 @@ function Billing() {
                     value="$455.00"
                   />
                 </Grid>
-                <Grid item xs={12}>
+                {/* <Grid item xs={12}>
                   <PaymentMethod />
-                </Grid>
+                </Grid> */}
               </Grid>
             </Grid>
-            <Grid item xs={12} lg={4}>
+            {/* <Grid item xs={12} lg={4}>
               <Invoices />
-            </Grid>
+            </Grid> */}
           </Grid>
         </MDBox>
-        <MDBox mb={3}>
+        {/* <MDBox mb={3}>
           <Grid container spacing={3}>
             <Grid item xs={12} md={7}>
               <BillingInformation />
             </Grid>
-            <Grid item xs={12} md={5}>
-              <Transactions />
-            </Grid>
+           
           </Grid>
-        </MDBox>
+        </MDBox> */}
       </MDBox>
       <Footer />
     </DashboardLayout>
