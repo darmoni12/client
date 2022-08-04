@@ -140,7 +140,7 @@ function Basic() {
                                 onClick={() => {
                                     // console.log(amount, askFor);
                                     axios.post(
-                                        `http://localhost:2400/user/makeTransactions`,
+                                        `http://localhost:2400/user/requestLoan`,
                                         {
                                             amount,
                                             loaner : askFor,

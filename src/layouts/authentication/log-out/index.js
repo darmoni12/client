@@ -42,7 +42,6 @@ function Billing() {
   axios(`http://localhost:2400/logout`,{ withCredentials: true })
   .then((res) => {
       navigate("/home");
-  
   })
   return (
     <DashboardLayout>

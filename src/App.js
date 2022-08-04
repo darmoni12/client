@@ -33,10 +33,17 @@ import brandDark from "assets/images/logo-ct-dark.png";
 
 import axios from "axios";
 
+import socketIOClient from "socket.io-client";
 
 
 export default function App() {
 
+  const socket = socketIOClient('localhost:2400');
+
+
+  socket.on('message', (message) => {
+    alert(message.text)
+  })
   const [controller, dispatch] = useMaterialUIController();
   const {
     miniSidenav,

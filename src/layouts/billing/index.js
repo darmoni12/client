@@ -40,7 +40,6 @@ import Loans from "./loans"
 
 
 // Data
-import authorsTableData from "layouts/billing/data/authorsTableData";
 // import projectsTableData from "layouts/billing/data/projectsTableData";
 
 function Billing() {
@@ -52,17 +51,17 @@ function Billing() {
         <MDBox mb={3}>
           <Grid container spacing={3}>
 
-            <Loans/>
+            <Loans />
             <Grid item xs={12}>
               <Grid container spacing={3}>
                 {/* <Grid item xs={12} xl={6}>
                   <MasterCard number={4562112245947852} holder="jack peterson" expires="11/22" />
                 </Grid> */}
-                
-                <Grid item xs={12} md={8}>
+                {/*                 
+                <Grid item xs={12} md={8}> TODO: return
                   <Transactions />
-                </Grid>
-                
+                </Grid> */}
+
                 <Grid item xs={12} md={6} xl={3}>
                   <DefaultInfoCard
                     icon="account_balance"

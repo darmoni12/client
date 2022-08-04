@@ -42,7 +42,6 @@ import BasicLayout from "layouts/authentication/components/BasicLayout";
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
 import store from "store";
 
-import socketIOClient from "socket.io-client";
 
 
 function Basic() {
@@ -135,18 +134,11 @@ function Basic() {
                     .then((res) => res.data)
                     .then((res) => {
                       if (res.success) {
-
                         navigate("/home");
                       } else {
                         alert("username or password is wrong");
                       }
                     })
-                  const socket = socketIOClient('localhost:2400');
-
-
-                  socket.on('message', (message) => {
-                    alert(message.text)
-                  })
 
                 }
                 }
