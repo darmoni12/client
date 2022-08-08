@@ -33,17 +33,45 @@ import brandDark from "assets/images/logo-ct-dark.png";
 
 import axios from "axios";
 
-import socketIOClient from "socket.io-client";
+import store from "store"
 
+// import socketIOClient from "socket.io-client";
+// export const socket = socketIOClient('localhost:2400');
+
+import Grid from "@mui/material/Grid";
+import MDButton from "components/MDButton";
+
+
+import io from 'socket.io-client';
+export const socket = io();
 
 export default function App() {
+  const [isConnected, setIsConnected] = useState(socket.connected);
+  const [lastPong, setLastPong] = useState(null);
 
-  const socket = socketIOClient('localhost:2400');
 
+  useEffect(() => {
+    socket.on('connect', () => {
+      setIsConnected(true);
+    });
 
-  socket.on('message', (message) => {
-    alert(message.text)
-  })
+    socket.on('disconnect', () => {
+      setIsConnected(false);
+    });
+
+    socket.on('message', (message) => {
+      console.log(message.text)
+      alert(message.text)
+      setLastPong(message)
+    })
+
+    return () => {
+      socket.off('connect');
+      socket.off('disconnect');
+      socket.off('message');
+    };
+  }, []);
+
   const [controller, dispatch] = useMaterialUIController();
   const {
     miniSidenav,
@@ -65,7 +93,7 @@ export default function App() {
         .then(res => res.data.msg)
         .then((res) => {
           setUser(res)
-
+          store.dispatch({type : "change user", user:res})
         })
         .catch(error => 
           {
@@ -183,6 +211,38 @@ export default function App() {
         {getRoutes(links)}
         <Route path="*" element={<Navigate to="/dashboard" />} />
       </Routes>
+      
+      <MDBox p={2}>
+                <Grid container spacing={3}>
+                  {/* <Grid item xs={12} sm={6} lg={3}>
+                    <MDButton variant="gradient" color="success" onClick={openSuccessSB} fullWidth>
+                      success notification
+                    </MDButton>
+                    {renderSuccessSB}
+                  </Grid> */}
+                  <Grid item xs={12} sm={6} lg={3}>
+                    <MDButton variant="gradient" color="info" onClick={openInfoSB} fullWidth>
+                      info notification
+                    </MDButton>
+                    {renderInfoSB}
+                  </Grid>
+                  {/* <Grid item xs={12} sm={6} lg={3}>
+                    <MDButton variant="gradient" color="warning" onClick={openWarningSB} fullWidth>
+                      warning notification
+                    </MDButton>
+                    {renderWarningSB}
+                  </Grid> */}
+                  {/* <Grid item xs={12} sm={6} lg={3}>
+                    <MDButton variant="gradient" color="error" onClick={openErrorSB} fullWidth>
+                      error notification
+                    </MDButton>
+                    {renderErrorSB}
+                  </Grid> */}
+                </Grid>
+              </MDBox>
     </ThemeProvider>
+
+
+
   );
 }

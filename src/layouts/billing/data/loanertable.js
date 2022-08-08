@@ -30,8 +30,8 @@ import Grid from "@mui/material/Grid";
 
 const statusDict = {
   returned: <MDBadge badgeContent="returned" color="success" variant="gradient" size="sm" />,
-  rejected: <MDBadge badgeContent="rejected" color="primary" variant="gradient" size="sm" />,
-  confirmed: <MDBadge badgeContent="confirmed" color="text" variant="gradient" size="sm" />,
+  rejected: <MDBadge badgeContent="rejected" color="error" variant="gradient" size="sm" />,
+  confirmed: <MDBadge badgeContent="confirmed" color="info" variant="gradient" size="sm" />,
   waitingToConfirm: <MDBadge badgeContent="waiting to confirm" color="secondary" variant="gradient" size="sm" />
 }
 
@@ -57,7 +57,7 @@ function getAction(status, loanId) {
                   else {alert(data.msg)}
                 })
             }} >confirm</MDButton>
-            <MDButton variant="text" color="primary" onClick={() => {
+            <MDButton variant="text" color="error" onClick={() => {
               console.log("reject loanid:", loanId)
               axios.post(
                 `http://localhost:2400/user/rejectLoan`,
@@ -151,7 +151,7 @@ export default function Data({ username }) {
       { Header: "action", accessor: "action", align: "center" },
     ],
     loanerRows: loans
-      .filter(x=> x.loaner == username)
+      // .filter(x=> x.loaner == username)
       .map(x => {
         const temp = getStatus(x)
         x.dateCreated = x.dateCreated.split(" ").slice(1, 4).toString()

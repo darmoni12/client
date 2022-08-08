@@ -54,7 +54,6 @@ import { useState, useEffect } from "react";
 // import team2 from "assets/images/team-2.jpg";
 // import team3 from "assets/images/team-3.jpg";
 // import team4 from "assets/images/team-4.jpg";
-// import store from "../../store";
 import UsersList from "./userslist"
 import Card from "@mui/material/Card";
 import Chat from "layouts/chat/chat"
@@ -64,12 +63,13 @@ function Overview() {
 
     const [pendingUsers, setPendingUsers] = useState([])
     const [activeUsers, setActiveUsers] = useState([])
-    const [chatWith, setChatWith] = useState()
+    const [chatWithId, setChatWithId] = useState()
+    const [chatWithImage, setChatWithImage] = useState()
     const [relevantChat, setRelevantChat] = useState([])
 
     useEffect(() => {
         setRelevantChat(
-            chatWith?
+            chatWithId?
             <Card>
                 <MDBox
                     mx={2}
@@ -77,10 +77,10 @@ function Overview() {
                     py={3}
                     px={2}
                 >
-                    <Chat userId={chatWith} isAdmin={true} />
+                    <Chat userId={chatWithId} userImage={chatWithImage} isAdmin={true} />
                 </MDBox>
             </Card>:[])
-    }, [chatWith]);
+    }, [chatWithId]);
 
 
     useEffect(() => {
@@ -109,7 +109,7 @@ function Overview() {
                             <UsersList name='pending users' lst={pendingUsers}></UsersList>
                         </Grid>
                         <Grid item xs={12} xl={4}>
-                            <UsersList name='active users' lst={activeUsers} onChat={setChatWith} ></UsersList>
+                            <UsersList name='active users' lst={activeUsers} setChatWithId={setChatWithId}  setChatWithImage={setChatWithImage}></UsersList>
                         </Grid>
                     </Grid>
                 </MDBox>

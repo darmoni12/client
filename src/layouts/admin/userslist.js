@@ -33,7 +33,8 @@ function UseringInformation(props) {
     id = {x._id}
     lastName={x.lastName}
     firstName = {x.firstName}
-    onChat = {props.onChat}
+    setChatWithId = {props.setChatWithId}
+    setChatWithImage = {props.setChatWithImage}
     image = {x.image}
     key = {x._id}
   />)

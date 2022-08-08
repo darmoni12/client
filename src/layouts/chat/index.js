@@ -27,10 +27,13 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 // import DataTable from "examples/Tables/DataTable";
 
+import store from "store"
+
 
 import Chat from "./chat"
 
 function Tables() {
+  const user = store.getState().user
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -46,7 +49,7 @@ function Tables() {
                 py={3}
                 px={2}
               >
-                <Chat userId={"me"} isAdmin={false} />
+                <Chat userId={user._id} userImage={user.image} isAdmin={false} />
               </MDBox>
             </Card>
 

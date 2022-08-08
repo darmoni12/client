@@ -24,10 +24,8 @@ import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 // import MasterCard from "examples/Cards/MasterCard";
-// import DefaultInfoCard from "examples/Cards/InfoCards/DefaultInfoCard";
 
 import axios from "axios";
-import store from "store";
 
 import { useNavigate } from "react-router-dom";
 

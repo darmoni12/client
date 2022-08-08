@@ -74,8 +74,8 @@
   }
   
   .chat-list {
-    height: calc(100% - 3rem);
-    overflow-y: scroll;
+    overflow: auto;
+    height: 500px;
     padding: 1rem;
     padding-bottom: 0.5rem;
   }

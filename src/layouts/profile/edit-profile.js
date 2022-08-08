@@ -33,7 +33,6 @@ import CoverLayout from "layouts/authentication/components/CoverLayout";
 // Images
 import bgImage from "assets/images/bg-sign-up-cover.jpeg";
 
-// import store from "store"
 
 function Cover() {
     const navigate = useNavigate();
@@ -44,19 +43,6 @@ function Cover() {
     const [firstName, setfirstName] = useState(props.firstName);
     const [lastName, setlastName] = useState(props.lastName);
     const [image, setImage] = useState(props.image);
-
-    // useEffect(() => {
-    //     axios(`http://localhost:2400/user/details`, { withCredentials: true })
-    //         .then(res => res.data.msg)
-    //         .then((res) => {
-    //             // setUser(res)
-    //             setusername(res.username)
-    //             setemail(res.email)
-    //             setfirstName(res.firstName)
-    //             setlastName(res.lastName)
-    //             setImage(res.image)
-    //         })
-    // }, []);
 
 
     return (

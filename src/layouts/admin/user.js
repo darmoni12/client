@@ -35,8 +35,6 @@ import EditUser from "./editUser";
 // Material Dashboard 2 React context
 import { useMaterialUIController } from "context";
 
-import store from "store"
-
 import { useState } from "react";
 
 
@@ -76,9 +74,11 @@ function User(props) {
     ;
 
   const thirdbutton = props.isConfirmed ?
-    <MDButton variant="text" color={darkMode ? "white" : "dark"} onClick={() =>
-      props.onChat(props.id)
-
+    <MDButton variant="text" color={darkMode ? "white" : "dark"} onClick={() => {
+      console.log(props.id,props.image)
+      props.setChatWithId(props.id)
+      props.setChatWithImage(props.image)
+    }
     } >
       <Icon>message</Icon>&nbsp;chat
     </MDButton>

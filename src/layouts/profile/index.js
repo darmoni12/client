@@ -54,28 +54,29 @@ import team1 from "assets/images/team-1.jpg";
 import team2 from "assets/images/team-2.jpg";
 import team3 from "assets/images/team-3.jpg";
 import team4 from "assets/images/team-4.jpg";
-import store from "../../store";
+import store from "store";
 
 
 function Overview() {
-  const [details,setdetails] = useState({})
+  const [details, setdetails] = useState({})
   useEffect(() => {
-    axios(`http://localhost:2400/user/details`, { withCredentials: true })
-      .then(res => res.data.msg)
-      .then((res) => {
-        // console.log("profile",res)
-        setdetails({
-          id: res._id,
-          firstName: res.firstName,
-          lastName: res.lastName,
-          username: res.username,
-          email: res.email,
-          image: res.image
-        })
-      });
-}, []);
+    setdetails(store.getState().user)
+    // axios(`http://localhost:2400/user/details`, { withCredentials: true })
+    //   .then(res => res.data.msg)
+    //   .then((res) => {
+    //     // console.log("profile",res)
+    //     setdetails({
+    //       id: res._id,
+    //       firstName: res.firstName,
+    //       lastName: res.lastName,
+    //       username: res.username,
+    //       email: res.email,
+    //       image: res.image
+    //     })
+    //   });
+  }, []);
 
- 
+
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -85,9 +86,9 @@ function Overview() {
           <Grid container spacing={1}>
             <Grid item xs={12} md={6} xl={4} sx={{ display: "flex" }}>
               <Divider orientation="vertical" sx={{ ml: -2, mr: 1 }} />
-              
+
               <ProfileInfoCard
-              
+
                 title={details.username}
                 description=""
                 info=

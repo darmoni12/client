@@ -14,8 +14,8 @@ import { createStore } from "redux";
  */
 function counterReducer(state = {}, action) {
   switch (action.type) {
-    case "change other user":
-      return {otherUser:action.user}
+    case "change user":
+      return {user:action.user}
     default:
       return state;
   }

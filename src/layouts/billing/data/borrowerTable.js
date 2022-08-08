@@ -27,15 +27,16 @@ import { useState, useEffect } from "react";
 
 const statusDict = {
   returned: <MDBadge badgeContent="returned" color="success" variant="gradient" size="sm" />,
-  rejected: <MDBadge badgeContent="rejected" color="primary" variant="gradient" size="sm" />,
-  confirmed: <MDBadge badgeContent="confirmed" color="text" variant="gradient" size="sm" />,
+  rejected: <MDBadge badgeContent="rejected" color="error" variant="gradient" size="sm" />,
+  confirmed: <MDBadge badgeContent="confirmed" color="info" variant="gradient" size="sm" />,
   waitingToConfirm: <MDBadge badgeContent="waiting to confirm" color="secondary" variant="gradient" size="sm" />
 }
+//["primary","secondary","info","success","warning","","light","dark"].
 
 function getAction(status, loanId) {
   if (status == "confirmed") return (
     <MDButton variant="text" color="info" fullWidth onClick={() => {
-      console.log("return loanid:", loanId)
+      // console.log("return loanid:", loanId)
       axios.post(
         `http://localhost:2400/user/repayLoan`,
         { loanId },
@@ -123,7 +124,7 @@ export default function Data({ username }) {
       { Header: "action", accessor: "action", align: "center" },
     ],
     borrowerRows: loans
-      .filter(x=> x.borrower == username)
+      // .filter(x=> x.borrower == username)
       .map(x => {
         const temp = getStatus(x)
         x.dateCreated = x.dateCreated.split(" ").slice(1, 4).toString()

@@ -44,7 +44,6 @@ import BasicLayout from "layouts/authentication/components/BasicLayout";
 
 // Images
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
-import store from "store";
 
 function Basic() {
     const [users, setUsers] = useState([])
@@ -82,23 +81,6 @@ function Basic() {
                     <MDTypography variant="h4" fontWeight="medium" color="white" mt={1}>
                         requst loan
                     </MDTypography>
-                    <Grid container spacing={3} justifyContent="center" sx={{ mt: 1, mb: 2 }}>
-                        <Grid item xs={2}>
-                            <MDTypography component={MuiLink} href="#" variant="body1" color="white">
-                                <FacebookIcon color="inherit" />
-                            </MDTypography>
-                        </Grid>
-                        <Grid item xs={2}>
-                            <MDTypography component={MuiLink} href="#" variant="body1" color="white">
-                                <GitHubIcon color="inherit" />
-                            </MDTypography>
-                        </Grid>
-                        <Grid item xs={2}>
-                            <MDTypography component={MuiLink} href="#" variant="body1" color="white">
-                                <GoogleIcon color="inherit" />
-                            </MDTypography>
-                        </Grid>
-                    </Grid>
                 </MDBox>
                 <MDBox pt={4} pb={3} px={3}>
                     <MDBox component="form" role="form">
@@ -126,6 +108,7 @@ function Basic() {
                                 onChange={(event, newValue) => {
                                     setAskFor(newValue._id);
                                 }}
+                                fullWidth
                                 sx={{ width: 300 }}
                                 renderInput={(params) => <TextField {...params} label="ask from" />}
                             />
