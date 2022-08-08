@@ -71,11 +71,8 @@ export default function App() {
 
 
     socket.on('message', (message) => {
-      console.log(message.text)
-      // console.log("message.text")
-      // alert(message.text)
+      setLastPong(message)
       openInfoSB()
-      // setLastPong(message)
     })
 
     return () => {
@@ -126,9 +123,9 @@ export default function App() {
   const renderInfoSB = (
     <MDSnackbar
       icon="notifications"
-      title="Material Dashboard"
-      content="Hello, world! This is a notification message"
-      dateTime="11 mins ago"
+      title="new message"
+      content= {lastPong?lastPong.text:"g"} // "Hello, world! This is a notification message"
+      dateTime="now"
       open={infoSB}
       onClose={closeInfoSB}
       close={closeInfoSB}
@@ -238,9 +235,6 @@ export default function App() {
       <MDBox p={2}>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6} lg={3}>
-            <MDButton variant="gradient" color="info" onClick={openInfoSB} fullWidth>
-              info notification
-            </MDButton>
             {renderInfoSB}
           </Grid>
         </Grid>
