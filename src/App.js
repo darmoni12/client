@@ -41,11 +41,18 @@ import store from "store"
 import Grid from "@mui/material/Grid";
 import MDButton from "components/MDButton";
 
+import MDSnackbar from "components/MDSnackbar";
 
 import io from 'socket.io-client';
 export const socket = io();
 
 export default function App() {
+  const [infoSB, setInfoSB] = useState(false);
+
+  const openInfoSB = () => setInfoSB(true);
+  const closeInfoSB = () => setInfoSB(false);
+
+
   const [isConnected, setIsConnected] = useState(socket.connected);
   const [lastPong, setLastPong] = useState(null);
 
@@ -62,6 +69,7 @@ export default function App() {
     socket.on('message', (message) => {
       console.log(message.text)
       alert(message.text)
+      openInfoSB()
       setLastPong(message)
     })
 
@@ -111,6 +119,17 @@ export default function App() {
     return () => clearInterval(intervalId); //This is important
   }, []);
 
+  const renderInfoSB = (
+    <MDSnackbar
+      icon="notifications"
+      title="Material Dashboard"
+      content="Hello, world! This is a notification message"
+      dateTime="11 mins ago"
+      open={infoSB}
+      onClose={closeInfoSB}
+      close={closeInfoSB}
+    />
+  );
   // Open sidenav when mouse enter on mini sidenav
   const handleOnMouseEnter = () => {
     if (miniSidenav && !onMouseEnter) {
@@ -212,34 +231,6 @@ export default function App() {
         <Route path="*" element={<Navigate to="/dashboard" />} />
       </Routes>
       
-      <MDBox p={2}>
-                <Grid container spacing={3}>
-                  {/* <Grid item xs={12} sm={6} lg={3}>
-                    <MDButton variant="gradient" color="success" onClick={openSuccessSB} fullWidth>
-                      success notification
-                    </MDButton>
-                    {renderSuccessSB}
-                  </Grid> */}
-                  <Grid item xs={12} sm={6} lg={3}>
-                    <MDButton variant="gradient" color="info" onClick={openInfoSB} fullWidth>
-                      info notification
-                    </MDButton>
-                    {renderInfoSB}
-                  </Grid>
-                  {/* <Grid item xs={12} sm={6} lg={3}>
-                    <MDButton variant="gradient" color="warning" onClick={openWarningSB} fullWidth>
-                      warning notification
-                    </MDButton>
-                    {renderWarningSB}
-                  </Grid> */}
-                  {/* <Grid item xs={12} sm={6} lg={3}>
-                    <MDButton variant="gradient" color="error" onClick={openErrorSB} fullWidth>
-                      error notification
-                    </MDButton>
-                    {renderErrorSB}
-                  </Grid> */}
-                </Grid>
-              </MDBox>
     </ThemeProvider>
 
 
