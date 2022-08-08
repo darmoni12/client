@@ -41,6 +41,48 @@ import { useState, useEffect } from "react";
 // import { useEffect } from "react";
 
 function Balance() {
+    const [balance, setBalance] = useState("");
+    const [amountInDollar, setAmountInDollar] = useState("");
+    const [usersAmount, setUsersAmount] = useState("");
+    const [amountInILS, setAmountInILS] = useState("");
+    useEffect(() => {
+        axios("http://localhost:2400/user/getBalance", {
+          withCredentials: true,
+        })
+        .then(res => res.data.msg)
+        .then((res) => {
+            console.log("getBalance")
+            setBalance(`${res} $`)
+        });
+      }, []);
+      useEffect(() => {
+        axios("http://localhost:2400/user/getAmountInDollar", {
+          withCredentials: true,
+        })
+        .then(res => res.data.msg)
+        .then((res) => {
+          setAmountInDollar(`${res} $`)
+        });
+      }, []);
+      useEffect(() => {
+        axios("http://localhost:2400/user/getUsersAmount", {
+          withCredentials: true,
+        })
+        .then(res => res.data.msg)
+        .then((res) => {
+          setUsersAmount(res)
+        });
+      }, []);
+
+    //   useEffect(() => {
+    //     axios("http://localhost:2400/user/getAmountInILS", {
+    //       withCredentials: true,
+    //     })
+    //     .then(res => res.data.msg)
+    //     .then((res) => {
+    //       setAmountInILS(`${res} $`)
+    //     });
+    //   }, []);
 
     return (
         <DashboardLayout>
@@ -51,28 +93,28 @@ function Balance() {
                         <MDBox mb={1.5}>
                             <ComplexStatisticsCard
                                 color="dark"
-                                icon="weekend"
-                                title="Bookings"
-                                count={281}
-                                percentage={{
-                                    color: "success",
-                                    amount: "+55%",
-                                    label: "than lask week",
-                                }}
+                                icon="money"
+                                title="balance"
+                                count={balance}
+                                // percentage={{
+                                //     color: "success",
+                                //     amount: "+55%",
+                                //     label: "than lask week",
+                                // }}
                             />
                         </MDBox>
                     </Grid>
                     <Grid item xs={12} md={6} lg={3}>
                         <MDBox mb={1.5}>
                             <ComplexStatisticsCard
-                                icon="leaderboard"
-                                title="Today's Users"
-                                count="2,300"
-                                percentage={{
-                                    color: "success",
-                                    amount: "+3%",
-                                    label: "than last month",
-                                }}
+                                icon="dollar"
+                                title="amountInDollar"
+                                count={amountInDollar}
+                                // percentage={{
+                                //     color: "success",
+                                //     amount: "+3%",
+                                //     label: "than last month",
+                                // }}
                             />
                         </MDBox>
                     </Grid>
@@ -80,14 +122,14 @@ function Balance() {
                         <MDBox mb={1.5}>
                             <ComplexStatisticsCard
                                 color="success"
-                                icon="store"
-                                title="Revenue"
-                                count="34k"
-                                percentage={{
-                                    color: "success",
-                                    amount: "+1%",
-                                    label: "than yesterday",
-                                }}
+                                icon="users"
+                                title="usersAmount"
+                                count={usersAmount}
+                                // percentage={{
+                                //     color: "success",
+                                //     amount: "+1%",
+                                //     label: "than yesterday",
+                                // }}
                             />
                         </MDBox>
                     </Grid>
@@ -95,14 +137,14 @@ function Balance() {
                         <MDBox mb={1.5}>
                             <ComplexStatisticsCard
                                 color="primary"
-                                icon="person_add"
-                                title="Followers"
-                                count="+91"
-                                percentage={{
-                                    color: "success",
-                                    amount: "",
-                                    label: "Just updated",
-                                }}
+                                icon="NIS"
+                                title="amountInILS"
+                                count={amountInILS}
+                                // percentage={{
+                                //     color: "success",
+                                //     amount: "",
+                                //     label: "Just updated",
+                                // }}
                             />
                         </MDBox>
                     </Grid>

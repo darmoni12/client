@@ -35,9 +35,9 @@ function Transactions() {
 
     axios("http://localhost:2400/user/getUserTransactions", { withCredentials: true }).then((res) => {
       setTransactions(res.data.msg);
-    }, []);
+    });
 
-  });
+  }, []);
   const showtransactions = transactions.map((x) => (
     <Transaction
       color={x.amount < 0 ? "error" : "success"}

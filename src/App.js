@@ -50,13 +50,35 @@ export const socket = socketIOClient('localhost:2400');
 
 
 export default function App() {
-  const [infoSB, setInfoSB] = useState(false);
 
-  const openInfoSB = () => {
+  const [successSB, setSuccessSB] = useState(false);
+  const [infoSB, setInfoSB] = useState(false);
+  const [warningSB, setWarningSB] = useState(false);
+  const [errorSB, setErrorSB] = useState(false);
+
+  const openSuccessSB = (message) => 
+  {
+    setSuccessSB(true);
+    setLastPong(message)
+  }
+  const closeSuccessSB = () => setSuccessSB(false);
+  const openInfoSB = (message) => {
     setInfoSB(true);
-  
+    setLastPong(message)
   }
   const closeInfoSB = () => setInfoSB(false);
+  const openWarningSB = (message) => {
+    setWarningSB(true);
+    setLastPong(message)
+  }
+  const closeWarningSB = () => setWarningSB(false);
+  const openErrorSB = (message) => {
+    setErrorSB(true);
+    setLastPong(message)
+  }
+  const closeErrorSB = () => setErrorSB(false);
+
+
 
 
   const [isConnected, setIsConnected] = useState(socket.connected);
@@ -74,11 +96,14 @@ export default function App() {
 
 
     socket.on('message', (message) => {
-      console.log(message)
       if (forMe(message.dst)) {
-        setLastPong(message)
-        openInfoSB()
-        console.log(message)
+        openInfoSB(message)
+      }
+    })
+
+    socket.on('balance', (message) => {
+      if (forMe(message.dst)) {
+        openWarningSB(message)
       }
     })
 
@@ -92,8 +117,6 @@ export default function App() {
   function forMe(dst)
   {
     const user = store.getState().user
-    console.log(dst,user._id)
-    console.log(typeof dst,typeof user._id)
     if(dst=="admin" && user.isAdmin)return true;
     if(dst==user._id)return true;
     return false;
@@ -136,15 +159,58 @@ export default function App() {
     return () => clearInterval(intervalId); //This is important
   }, []);
 
+  const renderSuccessSB = (
+    <MDSnackbar
+      color="success"
+      icon="check"
+      title="Material Dashboard"
+      content="Hello, world! This is a notification message"
+      dateTime="11 mins ago"
+      open={successSB}
+      onClose={closeSuccessSB}
+      close={closeSuccessSB}
+      bgWhite
+    />
+  );
+
   const renderInfoSB = (
     <MDSnackbar
       icon="notifications"
       title="new message"
-      content={lastPong ? lastPong.text : ""} // "Hello, world! This is a notification message"
-      dateTime="now"
+      content={lastPong ? lastPong.text : ""}
+      dateTime= {lastPong ? lastPong.date.split(" ").slice(1, 5).toString() : "now"}
       open={infoSB}
       onClose={closeInfoSB}
       close={closeInfoSB}
+    />
+  );
+
+  
+  const renderWarningSB = (
+    <MDSnackbar
+      color="warning"
+      icon="star"
+      title="warning"
+      content={lastPong ? lastPong.text : ""}
+      dateTime= {lastPong ? lastPong.date.split(" ").slice(1, 5).toString() : ""}
+      open={warningSB}
+      onClose={closeWarningSB}
+      close={closeWarningSB}
+      bgWhite
+    />
+  );
+
+  const renderErrorSB = (
+    <MDSnackbar
+      color="error"
+      icon="warning"
+      title="Material Dashboard"
+      content="Hello, world! This is a notification message"
+      dateTime="11 mins ago"
+      open={errorSB}
+      onClose={closeErrorSB}
+      close={closeErrorSB}
+      bgWhite
     />
   );
   // Open sidenav when mouse enter on mini sidenav
@@ -248,13 +314,33 @@ export default function App() {
         <Route path="*" element={<Navigate to="/dashboard" />} />
       </Routes>
 
-      <MDBox p={2}>
+      {/* <MDBox p={2}>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6} lg={3}>
             {renderInfoSB}
           </Grid>
         </Grid>
-      </MDBox>
+      </MDBox> */}
+       <MDBox p={2}>
+                <Grid container spacing={3}>
+                  <Grid item xs={12} sm={6} lg={3}>
+                    
+                    {renderSuccessSB}
+                  </Grid>
+                  <Grid item xs={12} sm={6} lg={3}>
+                    
+                    {renderInfoSB}
+                  </Grid>
+                  <Grid item xs={12} sm={6} lg={3}>
+                  
+                    {renderWarningSB}
+                  </Grid>
+                  <Grid item xs={12} sm={6} lg={3}>
+                    
+                    {renderErrorSB}
+                  </Grid>
+                </Grid>
+              </MDBox>
 
     </ThemeProvider>
 

@@ -35,8 +35,6 @@ function Chat({ userId, isAdmin ,userImage }) {
         image: isAdmin ? adminImage : userImage,
       }])
     );
-    // const socket = socketIOClient('localhost:2400');
-    // socket.emit('message', { dst:isAdmin?userId:"admin", text })
 
     console.log("send ", { dst:isAdmin?userId:"admin", text })
 

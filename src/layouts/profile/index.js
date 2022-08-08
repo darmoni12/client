@@ -60,20 +60,10 @@ import store from "store";
 function Overview() {
   const [details, setdetails] = useState({})
   useEffect(() => {
-    setdetails(store.getState().user)
-    // axios(`http://localhost:2400/user/details`, { withCredentials: true })
-    //   .then(res => res.data.msg)
-    //   .then((res) => {
-    //     // console.log("profile",res)
-    //     setdetails({
-    //       id: res._id,
-    //       firstName: res.firstName,
-    //       lastName: res.lastName,
-    //       username: res.username,
-    //       email: res.email,
-    //       image: res.image
-    //     })
-    //   });
+    var user = store.getState().user
+    delete user.isAdmin
+    delete user.isConfirmed
+    setdetails(user)
   }, []);
 
 

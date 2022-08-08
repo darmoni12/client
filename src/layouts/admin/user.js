@@ -75,7 +75,6 @@ function User(props) {
 
   const thirdbutton = props.isConfirmed ?
     <MDButton variant="text" color={darkMode ? "white" : "dark"} onClick={() => {
-      console.log(props.id,props.image)
       props.setChatWithId(props.id)
       props.setChatWithImage(props.image)
     }
