@@ -151,7 +151,7 @@ export default function Data({ username }) {
       { Header: "action", accessor: "action", align: "center" },
     ],
     loanerRows: loans
-      // .filter(x=> x.loaner == username)
+      .filter(x=> x.loaner == username)
       .map(x => {
         const temp = getStatus(x)
         x.dateCreated = x.dateCreated.split(" ").slice(1, 4).toString()

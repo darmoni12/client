@@ -43,8 +43,11 @@ import MDButton from "components/MDButton";
 
 import MDSnackbar from "components/MDSnackbar";
 
-import io from 'socket.io-client';
-export const socket = io();
+
+import socketIOClient from "socket.io-client";
+export const socket = socketIOClient('localhost:2400');
+
+
 
 export default function App() {
   const [infoSB, setInfoSB] = useState(false);
@@ -66,17 +69,19 @@ export default function App() {
       setIsConnected(false);
     });
 
+
     socket.on('message', (message) => {
       console.log(message.text)
-      alert(message.text)
+      // console.log("message.text")
+      // alert(message.text)
       openInfoSB()
-      setLastPong(message)
+      // setLastPong(message)
     })
 
     return () => {
       socket.off('connect');
       socket.off('disconnect');
-      socket.off('message');
+      // socket.off('message');
     };
   }, []);
 
@@ -101,12 +106,11 @@ export default function App() {
         .then(res => res.data.msg)
         .then((res) => {
           setUser(res)
-          store.dispatch({type : "change user", user:res})
+          store.dispatch({ type: "change user", user: res })
         })
-        .catch(error => 
-          {
-            setUser(undefined)
-          }
+        .catch(error => {
+          setUser(undefined)
+        }
         )
     };
     getUser();
@@ -230,7 +234,18 @@ export default function App() {
         {getRoutes(links)}
         <Route path="*" element={<Navigate to="/dashboard" />} />
       </Routes>
-      
+
+      <MDBox p={2}>
+        <Grid container spacing={3}>
+          <Grid item xs={12} sm={6} lg={3}>
+            <MDButton variant="gradient" color="info" onClick={openInfoSB} fullWidth>
+              info notification
+            </MDButton>
+            {renderInfoSB}
+          </Grid>
+        </Grid>
+      </MDBox>
+
     </ThemeProvider>
 
 

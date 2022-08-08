@@ -52,7 +52,11 @@ function Billing() {
           <Grid container spacing={3}>
 
             <Loans />
-           
+
+            <Grid item xs={12} md={8}>
+              <Transactions />
+            </Grid>
+
           </Grid>
         </MDBox>
       </MDBox>
