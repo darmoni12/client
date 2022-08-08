@@ -35,10 +35,10 @@ function Chat({ userId, isAdmin ,userImage }) {
         image: isAdmin ? adminImage : userImage,
       }])
     );
-    const socket = socketIOClient('localhost:2400');
+    // const socket = socketIOClient('localhost:2400');
+    // socket.emit('message', { dst:isAdmin?userId:"admin", text })
 
-    socket.emit('message', { dst:isAdmin?userId:"admin", text })
-    console.log("emit ", { dst:isAdmin?userId:"admin", text })
+    console.log("send ", { dst:isAdmin?userId:"admin", text })
 
     axios.post("http://localhost:2400/message/postMessage", { userId, text, idTypeIsSender: !isAdmin }, { withCredentials: true });
   }

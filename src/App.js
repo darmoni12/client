@@ -52,7 +52,10 @@ export const socket = socketIOClient('localhost:2400');
 export default function App() {
   const [infoSB, setInfoSB] = useState(false);
 
-  const openInfoSB = () => setInfoSB(true);
+  const openInfoSB = () => {
+    setInfoSB(true);
+  
+  }
   const closeInfoSB = () => setInfoSB(false);
 
 
@@ -71,17 +74,30 @@ export default function App() {
 
 
     socket.on('message', (message) => {
-      setLastPong(message)
-      openInfoSB()
+      console.log(message)
+      if (forMe(message.dst)) {
+        setLastPong(message)
+        openInfoSB()
+        console.log(message)
+      }
     })
 
     return () => {
       socket.off('connect');
       socket.off('disconnect');
-      // socket.off('message');
+      socket.off('message');
     };
   }, []);
 
+  function forMe(dst)
+  {
+    const user = store.getState().user
+    console.log(dst,user._id)
+    console.log(typeof dst,typeof user._id)
+    if(dst=="admin" && user.isAdmin)return true;
+    if(dst==user._id)return true;
+    return false;
+  }
   const [controller, dispatch] = useMaterialUIController();
   const {
     miniSidenav,
@@ -124,7 +140,7 @@ export default function App() {
     <MDSnackbar
       icon="notifications"
       title="new message"
-      content= {lastPong?lastPong.text:"g"} // "Hello, world! This is a notification message"
+      content={lastPong ? lastPong.text : ""} // "Hello, world! This is a notification message"
       dateTime="now"
       open={infoSB}
       onClose={closeInfoSB}

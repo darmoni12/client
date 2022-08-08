@@ -7,15 +7,16 @@ import Card from "@mui/material/Card";
 import MDTypography from "components/MDTypography";
 import DataTable from "examples/Tables/DataTable";
 
-
+import store from "store"
 
 // Data
 import loanerTable from "layouts/billing/data/loanertable";
 import borrowerTable from "layouts/billing/data/borrowerTable";
 
 export default function Loans() {
-    const { borrowerColumns, borrowerRows } = borrowerTable({ username: "yes" });
-    const { loanerColumns, loanerRows } = loanerTable({ username: "yes" });
+    const username = store.getState().user.username
+    const { borrowerColumns, borrowerRows } = borrowerTable({ username});
+    const { loanerColumns, loanerRows } = loanerTable({ username});
 
     return (
 

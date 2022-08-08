@@ -126,7 +126,7 @@ function Basic() {
                                         `http://localhost:2400/user/requestLoan`,
                                         {
                                             amount,
-                                            loaner : askFor,
+                                            loanerId : askFor,
                                             info
                                         },
                                         { withCredentials: true }
