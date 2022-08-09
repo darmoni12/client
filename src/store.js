@@ -12,10 +12,13 @@ import { createStore } from "redux";
  * You can use any conditional logic you want in a reducer. In this example,
  * we use a switch statement, but it's not required.
  */
-function counterReducer(state = {}, action) {
+function counterReducer(state = {alerts:[]}, action) {
   switch (action.type) {
     case "change user":
-      return {user:action.user}
+      return {...state,user:action.user}
+    case "alert":
+      state.alerts.push(action.alert)
+      return state
     default:
       return state;
   }

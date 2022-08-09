@@ -39,7 +39,7 @@ import { useState, useEffect } from "react";
 // import { useEffect } from "react";
 
 function Dashboard() {
-  
+  const [usersAmount, setUsersAmount] = useState("");
   const [yearChart, setYearChart] = useState({});
   const [monthChart, setMonthChart] = useState({});
   const [weekChart, setWeekChart] = useState({});
@@ -47,28 +47,37 @@ function Dashboard() {
     axios("http://localhost:2400/user/getTransactionsOfLastYear", {
       withCredentials: true,
     })
-    .then(res => res.data.msg)
-    .then((res) => {
-      setYearChart(res)
-    });
+      .then(res => res.data.msg)
+      .then((res) => {
+        setYearChart(res)
+      });
+  }, []);
+  useEffect(() => {
+    axios("http://localhost:2400/user/getUsersAmount", {
+      withCredentials: true,
+    })
+      .then(res => res.data.msg)
+      .then((res) => {
+        setUsersAmount(res)
+      });
   }, []);
   useEffect(() => {
     axios("http://localhost:2400/user/getTransactionsOfLastMonth", {
       withCredentials: true,
     })
-    .then(res => res.data.msg)
-    .then((res) => {
-      setMonthChart(res)
-    });
+      .then(res => res.data.msg)
+      .then((res) => {
+        setMonthChart(res)
+      });
   }, []);
   useEffect(() => {
     axios("http://localhost:2400/user/getTransactionsOfLastWeek", {
       withCredentials: true,
     })
-    .then(res => res.data.msg)
-    .then((res) => {
-      setWeekChart(res)
-    });
+      .then(res => res.data.msg)
+      .then((res) => {
+        setWeekChart(res)
+      });
   }, []);
   return (
     <DashboardLayout>
@@ -106,6 +115,22 @@ function Dashboard() {
                   description="your last week daily profit"
                   date="just updated"
                   chart={weekChart}
+                />
+              </MDBox>
+            </Grid>
+            
+            <Grid item xs={12} md={6} lg={3}>
+              <MDBox mb={1.5}>
+                <ComplexStatisticsCard
+                  color="success"
+                  icon="users"
+                  title="usersAmount"
+                  count={usersAmount}
+                // percentage={{
+                //     color: "success",
+                //     amount: "+1%",
+                //     label: "than yesterday",
+                // }}
                 />
               </MDBox>
             </Grid>

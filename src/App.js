@@ -98,18 +98,25 @@ export default function App() {
     socket.on('message', (message) => {
       if (forMe(message.dst)) {
         openInfoSB(message)
+        message.title='chat message'
+        message.color='info'
+        store.dispatch({type:"alert",alert:message})
       }
     })
 
     socket.on('balance', (message) => {
       if (forMe(message.dst)) {
         openWarningSB(message)
+        message.title='balance message'
+        message.color='warning'
+        store.dispatch({type:"alert",alert:message})
       }
     })
 
     return () => {
       socket.off('connect');
       socket.off('disconnect');
+      socket.off('balance');
       socket.off('message');
     };
   }, []);
@@ -117,6 +124,9 @@ export default function App() {
   function forMe(dst)
   {
     const user = store.getState().user
+    console.log(user)
+    console.log(dst)
+    console.log(user.isAdmin)
     if(dst=="admin" && user.isAdmin)return true;
     if(dst==user._id)return true;
     return false;

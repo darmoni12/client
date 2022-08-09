@@ -30,7 +30,6 @@ import Logout from "layouts/authentication/log-out";
 import Admin from "layouts/admin";
 import EditUser from "layouts/admin/editUser";
 import EditProfile from "layouts/profile/edit-profile"
-import Balance from "layouts/balance"
 
 // @mui icons
 import Icon from "@mui/material/Icon";
@@ -62,14 +61,6 @@ export const userRoutes = [
     icon: <Icon fontSize="small">dashboard</Icon>,
     route: "/dashboard",
     component: <Dashboard />,
-  },
-  {
-    type: "collapse",
-    name: "Balance",
-    key: "balance",
-    icon: <Icon fontSize="small">balance</Icon>,
-    route: "/balance",
-    component: <Balance />,
   },
   {
     type: "collapse",

@@ -1,12 +1,24 @@
-import React, {  useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types'
 import './ChatBubble.css';
 
 
 function ChatBubble(props) {
     const [newMessage, setNewMessage] = useState('')
+    const bottomRef = useRef(null);
 
-    function getConversations(messages){
+    
+    const messages = props.messages;
+    const chatList = getConversations(messages);
+
+    useEffect(() => {
+
+        // 👇️ scroll to bottom every time messages change
+        bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, [newMessage]);
+    
+
+    function getConversations(messages) {
         if (messages === undefined) {
             return;
         }
@@ -43,13 +55,12 @@ function ChatBubble(props) {
 
     const handleInputChange = e => setNewMessage(e.target.value)
 
-    // const {props: {messages}, state: {newMessage}} = this;
-    const messages = props.messages;
-    const chatList = getConversations(messages);
     return (
         <div className="chats">
             <div className="chat-list">
                 {chatList}
+                <div ref={bottomRef} />
+
             </div>
             <form
                 className="new-message"
@@ -62,6 +73,7 @@ function ChatBubble(props) {
                     className="new-message-input"
                 />
             </form>
+
         </div>
     );
 
