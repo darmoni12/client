@@ -47,7 +47,16 @@ import MDSnackbar from "components/MDSnackbar";
 import socketIOClient from "socket.io-client";
 export const socket = socketIOClient('localhost:2400');
 
-
+export function forMe(dst)
+  {
+    const user = store.getState().user
+    console.log(user)
+    console.log(dst)
+    console.log(user.isAdmin)
+    if(dst=="admin" && user.isAdmin)return true;
+    if(dst==user._id)return true;
+    return false;
+  }
 
 export default function App() {
 
@@ -121,16 +130,7 @@ export default function App() {
     };
   }, []);
 
-  function forMe(dst)
-  {
-    const user = store.getState().user
-    console.log(user)
-    console.log(dst)
-    console.log(user.isAdmin)
-    if(dst=="admin" && user.isAdmin)return true;
-    if(dst==user._id)return true;
-    return false;
-  }
+  
   const [controller, dispatch] = useMaterialUIController();
   const {
     miniSidenav,

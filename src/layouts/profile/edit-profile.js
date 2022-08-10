@@ -32,6 +32,7 @@ import CoverLayout from "layouts/authentication/components/CoverLayout";
 // Images
 import bgImage from "assets/images/bg-sign-up-cover.jpeg";
 
+import store from "store";
 
 function Cover() {
     const navigate = useNavigate();
@@ -113,18 +114,20 @@ function Cover() {
                                 color="info"
                                 fullWidth
                                 onClick={() => {
+                                    const details={
+                                        username,
+                                        email,
+                                        firstName,
+                                        lastName
+                                    }
                                     axios.post(///post patch
                                         `http://localhost:2400/user/updateDetails`,
-                                        {
-                                            username,
-                                            email,
-                                            firstName,
-                                            lastName
-                                        },
+                                        details,
                                         { withCredentials: true }
                                     )
                                         // .then((res) => res.data)
                                         .then((data) => {
+                                            store.dispatch({type:"edit profile",details})
                                             navigate("/profile")
                                         })
 

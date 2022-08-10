@@ -63,24 +63,9 @@ function Overview() {
 
     const [pendingUsers, setPendingUsers] = useState([])
     const [activeUsers, setActiveUsers] = useState([])
-    const [chatWithId, setChatWithId] = useState()
+    const [chatWithId, setChatWithId] = useState("")
     const [chatWithImage, setChatWithImage] = useState()
-    const [relevantChat, setRelevantChat] = useState([])
-
-    useEffect(() => {
-        setRelevantChat(
-            chatWithId?
-            <Card>
-                <MDBox
-                    mx={2}
-                    mt={3}
-                    py={3}
-                    px={2}
-                >
-                    <Chat userId={chatWithId} userImage={chatWithImage} isAdmin={true} />
-                </MDBox>
-            </Card>:[])
-    }, [chatWithId]);
+    const [lastupdate, setlastupdate] = useState(false)
 
 
     useEffect(() => {
@@ -89,7 +74,7 @@ function Overview() {
             .then((res) => {
                 setPendingUsers(res)
             });
-    }, []);
+    }, [lastupdate]);
 
     useEffect(() => {
         axios(`http://localhost:2400/message/getUsersContact`, { withCredentials: true })
@@ -97,31 +82,37 @@ function Overview() {
             .then((res) => {
                 setActiveUsers(res)
             });
-    }, []);
+    }, [lastupdate]);
     return (
         <DashboardLayout>
             <DashboardNavbar />
-            <MDBox mb={2}/>
+            <MDBox mb={2} />
             <Header>
                 <MDBox mt={5} mb={3}>
                     <Grid container spacing={1}>
                         {/* <Grid item xs={12} xl={4}> */}
                         <Grid item xs={12} xl={"100%"}>
-                            <UsersList name='pending users' lst={pendingUsers}></UsersList>
+                            <UsersList name='pending users' onChange={setlastupdate} lst={pendingUsers}></UsersList>
                         </Grid>
                         {/* <Grid item xs={12} xl={4} > */}
                         <Grid item xs={12} xl={"100%"} >
-
-                {/* sx={{ weight: "10%" }} */}
-
-
-                            <UsersList name='active users' lst={activeUsers} setChatWithId={setChatWithId}  setChatWithImage={setChatWithImage}></UsersList>
+                            {/* sx={{ weight: "10%" }} */}
+                            <UsersList name='active users' onChange={setlastupdate} lst={activeUsers} setChatWithId={setChatWithId} setChatWithImage={setChatWithImage}></UsersList>
                         </Grid>
                     </Grid>
                 </MDBox>
                 <Grid item xs={12}>
-                    {relevantChat}
-
+                    {/* {relevantChat} */}
+                    <Card>
+                        <MDBox
+                            mx={2}
+                            mt={3}
+                            py={3}
+                            px={2}
+                        >
+                            <Chat userId={chatWithId} userImage={chatWithImage} isAdmin={true} />
+                        </MDBox>
+                    </Card>
                 </Grid>
 
             </Header>

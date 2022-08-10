@@ -16,6 +16,13 @@ function counterReducer(state = {alerts:[]}, action) {
   switch (action.type) {
     case "change user":
       return {...state,user:action.user}
+    case "edit profile":
+      state.user.username = action.details.username
+      state.user.email = action.details.email
+      state.user.firstName = action.details.firstName
+      state.user.lastName = action.details.lastName
+      return state
+      
     case "alert":
       state.alerts.push(action.alert)
       return state

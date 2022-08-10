@@ -37,6 +37,7 @@ function UseringInformation(props) {
     setChatWithImage = {props.setChatWithImage}
     image = {x.image}
     key = {x._id}
+    onChange ={props.onChange}
   />)
 
   return (

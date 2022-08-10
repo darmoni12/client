@@ -82,8 +82,22 @@ function User(props) {
       <Icon>message</Icon>&nbsp;chat
     </MDButton>
     :
-    <MDButton variant="text" color={darkMode ? "white" : "dark"} onClick={() =>
+    <MDButton variant="text" color={darkMode ? "white" : "dark"} onClick={() => {
       axios.post(`http://localhost:2400/admin/confirmUser`, { _id: props.id, amount }, { withCredentials: true })
+        .then(res => res.data)
+        .then(res => {
+          if (res.success) {
+            props.onChange(props.id+"confirm")
+            console.log(res)
+            console.log("confirm user")
+          }
+          else {
+            alert(res.msg)
+          }
+        }
+        )
+
+    }
     } >
       <Icon>edit</Icon>&nbsp;confirm
     </MDButton>;
@@ -120,8 +134,11 @@ function User(props) {
               <MDButton variant="text" color="error" onClick={() => {
                 axios.post(`http://localhost:2400/admin/deleteUser`, { _id: props.id }, { withCredentials: true })
                   .then((res) => {
-                    navigate("/admin");
+                    props.onChange(props.id+"delete")
+
+                    // navigate("/admin");
                   })
+
               }}
               >
                 <Icon>delete</Icon>&nbsp;delete

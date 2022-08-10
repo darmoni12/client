@@ -11,6 +11,7 @@ function ChatBubble(props) {
     const messages = props.messages;
     const chatList = getConversations(messages);
 
+    
     useEffect(() => {
 
         // 👇️ scroll to bottom every time messages change
@@ -44,7 +45,6 @@ function ChatBubble(props) {
     const handleSubmit = e => {
         e.preventDefault()
 
-        // const {props: {onNewMessage}, state: {newMessage}} = this
         const onNewMessage = props.onNewMessage
 
         if (onNewMessage && newMessage) {
