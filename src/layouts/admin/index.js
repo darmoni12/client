@@ -101,20 +101,25 @@ function Overview() {
     return (
         <DashboardLayout>
             <DashboardNavbar />
-            <MDBox mb={2} />
+            <MDBox mb={2}/>
             <Header>
                 <MDBox mt={5} mb={3}>
                     <Grid container spacing={1}>
-                        <Grid item xs={12} xl={4}>
+                        {/* <Grid item xs={12} xl={4}> */}
+                        <Grid item xs={12} xl={"100%"}>
                             <UsersList name='pending users' lst={pendingUsers}></UsersList>
                         </Grid>
-                        <Grid item xs={12} xl={4}>
+                        {/* <Grid item xs={12} xl={4} > */}
+                        <Grid item xs={12} xl={"100%"} >
+
+                {/* sx={{ weight: "10%" }} */}
+
+
                             <UsersList name='active users' lst={activeUsers} setChatWithId={setChatWithId}  setChatWithImage={setChatWithImage}></UsersList>
                         </Grid>
                     </Grid>
                 </MDBox>
                 <Grid item xs={12}>
-
                     {relevantChat}
 
                 </Grid>

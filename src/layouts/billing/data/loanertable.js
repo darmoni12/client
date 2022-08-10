@@ -88,7 +88,7 @@ function getStatus(x) {
 }
 
 export default function Data({ username }) {
-  const [loans, setLoans] = useState([
+  const [loans, setLoans] = useState([])
     // {
     //   "_id": "62e92308651038453dd56e11",
     //   "info": "i am the admin, please help !",
@@ -129,7 +129,7 @@ export default function Data({ username }) {
     //   "__v": 0,
     //   "returnedDate": "Wed Aug 03 2022 12:56:18 GMT+0300 (שעון ישראל (קיץ))"
     // }
-  ])
+  // ])
 
   useEffect(() => {
     axios(`http://localhost:2400/user/getLoans`, { withCredentials: true })
@@ -149,15 +149,19 @@ export default function Data({ username }) {
       { Header: "date To Return", accessor: "dateToReturn", align: "center" },
       { Header: "status", accessor: "status", align: "center" },
       { Header: "action", accessor: "action", align: "center" },
+      { Header: "returned Date", accessor: "returnedDate", align: "center" },
     ],
     loanerRows: loans
       .filter(x=> x.loaner == username)
       .map(x => {
         const temp = getStatus(x)
-        x.dateCreated = x.dateCreated.split(" ").slice(1, 4).toString()
-        x.dateToReturn = x.dateToReturn.split(" ").slice(1, 4).toString()
+        // x.dateCreated = x.dateCreated.split(" ").slice(1, 4).toString()
+        // x.dateToReturn = x.dateToReturn.split(" ").slice(1, 4).toString()
         x.status = statusDict[temp]
         x.action = getAction(temp, x._id)
+        // if (x.returnedDate) {
+        //   x.returnedDate = x.returnedDate.split(" ").slice(1, 4).toString()
+        // }
         return x
       })
   }

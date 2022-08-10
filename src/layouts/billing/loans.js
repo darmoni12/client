@@ -13,23 +13,45 @@ import store from "store"
 import loanerTable from "layouts/billing/data/loanertable";
 import borrowerTable from "layouts/billing/data/borrowerTable";
 
+
+function dateFixxer(loans, username)
+{
+    var temp = [];
+    for(const element of loans)
+    {
+    temp.push({...element});
+    }
+    // console.log(temp)
+    return temp
+      .filter(x=> (x.borrower == username || x.loaner == username))
+      .map(x => {
+        x.dateCreated = x.dateCreated.split(" ").slice(1, 5).toString().replaceAll(",", "-")
+        x.dateToReturn = x.dateToReturn.split(" ").slice(1, 5).toString().replaceAll(",", "-")
+        if (x.returnedDate) {
+          x.returnedDate = x.returnedDate.split(" ").slice(1, 5).toString().replaceAll(",", "-")
+        }
+        return x
+      })
+}
+
 export default function Loans() {
     const username = store.getState().user.username
-    const { borrowerColumns, borrowerRows } = borrowerTable({ username});
     const { loanerColumns, loanerRows } = loanerTable({ username});
+
+    const { borrowerColumns, borrowerRows } = borrowerTable({ username});
+    // const { loanerColumns, loanerRows } = loanerTable({ username});
+    // console.log("borrowerRows = ", borrowerRows);
 
     return (
 
         <Grid item xs={12} >
             <Grid item xs={12}>
-                <Grid container spacing={3}>
-
+                <Grid container spacing={5}>
 
                     <Grid item xs={12}>
-
                         <Card>
                             <MDBox
-                                mx={2}
+                                mx={20}
                                 mt={-3}
                                 py={3}
                                 px={2}
@@ -44,7 +66,7 @@ export default function Loans() {
                             </MDBox>
                             <MDBox pt={3}>
                                 <DataTable
-                                    table={{ columns: borrowerColumns, rows: borrowerRows }}
+                                    table={{ columns: borrowerColumns, rows: dateFixxer(borrowerRows, username) }}
                                     isSorted={false}
                                     entriesPerPage={false}
                                     showTotalEntries={false}
@@ -56,7 +78,7 @@ export default function Loans() {
                     <Grid item xs={12}>
                         <Card>
                             <MDBox
-                                mx={2}
+                                mx={20}
                                 mt={-3}
                                 py={3}
                                 px={2}
@@ -71,7 +93,7 @@ export default function Loans() {
                             </MDBox>
                             <MDBox pt={3}>
                                 <DataTable
-                                    table={{ columns: loanerColumns, rows: loanerRows }}
+                                    table={{ columns: loanerColumns, rows: dateFixxer(loanerRows, username) }}
                                     isSorted={false}
                                     entriesPerPage={false}
                                     showTotalEntries={false}
@@ -82,8 +104,6 @@ export default function Loans() {
                     </Grid>
                 </Grid>
             </Grid>
-
-
 
         </Grid>
     )

@@ -50,15 +50,17 @@ function Overview() {
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      
       <MDBox mb={2} />
       <Header>
-        
-        <MDBox >
+
+
+      <MDBox >
+
         <MDBox mt={5} mb={3}>
           <Grid container spacing={1}>
-            <Grid item xs={12} md={6} xl={4} sx={{ display: "flex" }}>
-              <Divider orientation="vertical" sx={{ ml: -2, mr: 1 }} />
+            <Grid item xs={12} md={6} xl={20} sx={{ display: "flex" }}>
+              {/* <Divider orientation="vertical" sx={{ ml: -2, mr: 1 }} alignItems="center"  /> */}
+              <Divider orientation="horizontal" sx={{ ml: 30, mr: 25 }}/>
 
               <ProfileInfoCard
 
@@ -70,16 +72,16 @@ function Overview() {
                 ]}
                 shadow={false}
               />
-              <Divider orientation="vertical" sx={{ mx: 0 }} />
+              {/* <Divider orientation="vertical" sx={{ mx: 0 }} /> */}
+              <Divider orientation="horizontal" sx={{ mx: 10 }} />
             </Grid>
           </Grid>
 
-        </MDBox>
-        <Balance/>
+          </MDBox>
+          <Balance/>
 
         </MDBox>
       </Header>
-
       <Footer />
     </DashboardLayout>
   );
