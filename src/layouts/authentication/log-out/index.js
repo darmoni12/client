@@ -29,16 +29,16 @@ import axios from "axios";
 
 import { useNavigate } from "react-router-dom";
 
-// Billing page components
-// import PaymentMethod from "layouts/billing/components/PaymentMethod";
-// import Invoices from "layouts/billing/components/Invoices";
-// import BillingInformation from "layouts/billing/components/BillingInformation";
-// import Transactions from "layouts/billing/components/Transactions";
+import { successPopUp, errorPopUp } from "App";
+
+
 
 function Billing() {
   const navigate = useNavigate();
   axios(`http://localhost:2400/logout`,{ withCredentials: true })
   .then((res) => {
+
+    successPopUp("log out")
       navigate("/home");
   })
   return (

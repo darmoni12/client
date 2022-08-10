@@ -38,8 +38,7 @@ const statusDict = {
 function getAction(status, loanId) {
   if (status == "waitingToConfirm") {
     return (
-      <MDBox mt={8}>
-        <MDBox mb={3}>
+      <MDBox mt={3}>
           <Grid container spacing={3}>
             <MDButton variant="text" color="info" onClick={() => {
               console.log("confirm loanid:", loanId)
@@ -74,7 +73,6 @@ function getAction(status, loanId) {
               })
             }} >reject</MDButton>
           </Grid>
-        </MDBox>
       </MDBox>
     )
   }

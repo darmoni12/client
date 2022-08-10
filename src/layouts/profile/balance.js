@@ -40,7 +40,7 @@ export default function Balance() {
         .then(res => res.data.msg)
         .then((res) => {
             console.log("getBalance")
-            setBalance(`${res} $`)
+            setBalance(`${res} ₿`)
         });
       }, []);
       useEffect(() => {
@@ -60,7 +60,7 @@ export default function Balance() {
     //     })
     //     .then(res => res.data.msg)
     //     .then((res) => {
-    //       setAmountInILS(`${res} $`)
+    //       setAmountInILS(`${res} ₪`)
     //     });
     //   }, []);
 
@@ -85,7 +85,7 @@ export default function Balance() {
                     <Grid item xs={12} md={6} lg={3}>
                         <MDBox mb={1.5}>
                             <ComplexStatisticsCard
-                                icon="dollar"
+                                icon="paid"
                                 title="amountInDollar"
                                 count={amountInDollar}
                                 // percentage={{
@@ -101,7 +101,7 @@ export default function Balance() {
                         <MDBox mb={1.5}>
                             <ComplexStatisticsCard
                                 color="primary"
-                                icon="NIS"
+                                icon="₪"
                                 title="amountInILS"
                                 count={amountInILS}
                                 // percentage={{

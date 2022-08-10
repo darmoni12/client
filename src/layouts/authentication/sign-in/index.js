@@ -41,6 +41,7 @@ import BasicLayout from "layouts/authentication/components/BasicLayout";
 // Images
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
 
+import { successPopUp, errorPopUp } from "App";
 
 
 function Basic() {
@@ -133,9 +134,10 @@ function Basic() {
                     .then((res) => res.data)
                     .then((res) => {
                       if (res.success) {
+                        successPopUp("sign in")
                         navigate("/home");
                       } else {
-                        alert("username or password is wrong");
+                        errorPopUp("username or password is wrong")
                       }
                     })
 

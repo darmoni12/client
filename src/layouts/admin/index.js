@@ -89,13 +89,13 @@ function Overview() {
             <MDBox mb={2} />
             <Header>
                 <MDBox mt={5} mb={3}>
-                    <Grid container spacing={1}>
+                    <Grid container spacing={3}>
                         {/* <Grid item xs={12} xl={4}> */}
-                        <Grid item xs={12} xl={"100%"}>
+                        <Grid item xs={6} xl={"100%"}>
                             <UsersList name='pending users' onChange={setlastupdate} lst={pendingUsers}></UsersList>
                         </Grid>
                         {/* <Grid item xs={12} xl={4} > */}
-                        <Grid item xs={12} xl={"100%"} >
+                        <Grid item xs={6} xl={"100%"} >
                             {/* sx={{ weight: "10%" }} */}
                             <UsersList name='active users' onChange={setlastupdate} lst={activeUsers} setChatWithId={setChatWithId} setChatWithImage={setChatWithImage}></UsersList>
                         </Grid>

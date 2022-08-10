@@ -42,8 +42,8 @@ function UseringInformation(props) {
 
   return (
     <Card id="delete-account">
-      <MDBox pt={3} px={2}>
-        <MDTypography variant="h6" fontWeight="medium">
+      <MDBox pt={3} px={2} variant="gradient" bgColor="info" borderRadius="lg" coloredShadow="info" mx={"auto"} mt={-3} py={3}>
+        <MDTypography variant="h6" fontWeight="medium" color="white">
           {props.name}
         </MDTypography>
       </MDBox>

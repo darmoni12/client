@@ -47,16 +47,24 @@ import MDSnackbar from "components/MDSnackbar";
 import socketIOClient from "socket.io-client";
 export const socket = socketIOClient('localhost:2400');
 
-export function forMe(dst)
-  {
-    const user = store.getState().user
-    console.log(user)
-    console.log(dst)
-    console.log(user.isAdmin)
-    if(dst=="admin" && user.isAdmin)return true;
-    if(dst==user._id)return true;
-    return false;
-  }
+
+export function errorPopUp(text){
+  socket.emit('error', { dst: store.getState().user._id, text:"The "+text+" operation was successful"})
+}
+
+export function successPopUp(text){
+  socket.emit('success', { dst: store.getState().user._id, text:text})
+}
+
+export function forMe(dst) {
+  const user = store.getState().user
+  console.log(user)
+  console.log(dst)
+  console.log(user.isAdmin)
+  if (dst == "admin" && user.isAdmin) return true;
+  if (dst == user._id) return true;
+  return false;
+}
 
 export default function App() {
 
@@ -65,8 +73,7 @@ export default function App() {
   const [warningSB, setWarningSB] = useState(false);
   const [errorSB, setErrorSB] = useState(false);
 
-  const openSuccessSB = (message) => 
-  {
+  const openSuccessSB = (message) => {
     setSuccessSB(true);
     setLastPong(message)
   }
@@ -93,6 +100,11 @@ export default function App() {
   const [isConnected, setIsConnected] = useState(socket.connected);
   const [lastPong, setLastPong] = useState(null);
 
+  function saveAlert(message,title,color){
+    message.title = title
+    message.color = color
+    store.dispatch({ type: "alert", alert: message })
+  }
 
   useEffect(() => {
     socket.on('connect', () => {
@@ -105,20 +117,33 @@ export default function App() {
 
 
     socket.on('message', (message) => {
+      console.log('message',message)
       if (forMe(message.dst)) {
         openInfoSB(message)
-        message.title='chat message'
-        message.color='info'
-        store.dispatch({type:"alert",alert:message})
+        saveAlert(message,'chat message','info')
       }
     })
 
     socket.on('balance', (message) => {
+      console.log('balance',message)
+
       if (forMe(message.dst)) {
         openWarningSB(message)
-        message.title='balance message'
-        message.color='warning'
-        store.dispatch({type:"alert",alert:message})
+        saveAlert(message,'balance message','warning')
+      }
+    })
+
+    socket.on('success', (message) => {
+      if (forMe(message.dst)) {
+        openSuccessSB(message)
+        saveAlert(message,"success",'succscses')
+      }
+    })
+
+    socket.on('error', (message) => {
+      if (forMe(message.dst)) {
+        openSuccessSB(message)
+        saveAlert(message,"error",'error')
       }
     })
 
@@ -127,10 +152,12 @@ export default function App() {
       socket.off('disconnect');
       socket.off('balance');
       socket.off('message');
+      socket.off('success');
+      socket.off('error');
     };
   }, []);
 
-  
+
   const [controller, dispatch] = useMaterialUIController();
   const {
     miniSidenav,
@@ -173,13 +200,12 @@ export default function App() {
     <MDSnackbar
       color="success"
       icon="check"
-      title="Material Dashboard"
-      content="Hello, world! This is a notification message"
-      dateTime="11 mins ago"
+      title="success"
+      content={lastPong ? lastPong.text : ""}
+      dateTime={lastPong ? (lastPong.date ? lastPong.date.split(" ").slice(1, 5).toString():"now") : "now"}
       open={successSB}
       onClose={closeSuccessSB}
       close={closeSuccessSB}
-      bgWhite
     />
   );
 
@@ -188,39 +214,39 @@ export default function App() {
       icon="notifications"
       title="new message"
       content={lastPong ? lastPong.text : ""}
-      dateTime= {lastPong ? lastPong.date.split(" ").slice(1, 5).toString() : "now"}
+      dateTime={lastPong ? (lastPong.date ? lastPong.date.split(" ").slice(1, 5).toString():"now") : "now"}
       open={infoSB}
       onClose={closeInfoSB}
       close={closeInfoSB}
     />
   );
 
-  
+
   const renderWarningSB = (
     <MDSnackbar
       color="warning"
       icon="star"
       title="warning"
       content={lastPong ? lastPong.text : ""}
-      dateTime= {lastPong ? lastPong.date.split(" ").slice(1, 5).toString() : ""}
+      dateTime={lastPong ? (lastPong.date ? lastPong.date.split(" ").slice(1, 5).toString():"now") : "now"}
       open={warningSB}
       onClose={closeWarningSB}
       close={closeWarningSB}
-      bgWhite
     />
   );
 
   const renderErrorSB = (
+
+    
     <MDSnackbar
       color="error"
       icon="warning"
-      title="Material Dashboard"
-      content="Hello, world! This is a notification message"
-      dateTime="11 mins ago"
+      title="error"
+      content={lastPong ? lastPong.text : ""}
+      dateTime={lastPong ? (lastPong.date ? lastPong.date.split(" ").slice(1, 5).toString():"now") : "now"}
       open={errorSB}
       onClose={closeErrorSB}
       close={closeErrorSB}
-      bgWhite
     />
   );
   // Open sidenav when mouse enter on mini sidenav
@@ -331,26 +357,26 @@ export default function App() {
           </Grid>
         </Grid>
       </MDBox> */}
-       <MDBox p={2}>
-                <Grid container spacing={3}>
-                  <Grid item xs={12} sm={6} lg={3}>
-                    
-                    {renderSuccessSB}
-                  </Grid>
-                  <Grid item xs={12} sm={6} lg={3}>
-                    
-                    {renderInfoSB}
-                  </Grid>
-                  <Grid item xs={12} sm={6} lg={3}>
-                  
-                    {renderWarningSB}
-                  </Grid>
-                  <Grid item xs={12} sm={6} lg={3}>
-                    
-                    {renderErrorSB}
-                  </Grid>
-                </Grid>
-              </MDBox>
+      <MDBox p={2}>
+        <Grid container spacing={3}>
+          <Grid item xs={12} sm={6} lg={3}>
+
+            {renderSuccessSB}
+          </Grid>
+          <Grid item xs={12} sm={6} lg={3}>
+
+            {renderInfoSB}
+          </Grid>
+          <Grid item xs={12} sm={6} lg={3}>
+
+            {renderWarningSB}
+          </Grid>
+          <Grid item xs={12} sm={6} lg={3}>
+
+            {renderErrorSB}
+          </Grid>
+        </Grid>
+      </MDBox>
 
     </ThemeProvider>
 

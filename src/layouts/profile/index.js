@@ -50,7 +50,7 @@ function Overview() {
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <MDBox mb={2} />
+      <MDBox mb={-1} />
       <Header>
 
 
@@ -70,7 +70,7 @@ function Overview() {
                 {details}
                 social={[
                 ]}
-                shadow={false}
+                shadow={true}
               />
               {/* <Divider orientation="vertical" sx={{ mx: 0 }} /> */}
               <Divider orientation="horizontal" sx={{ mx: 10 }} />
