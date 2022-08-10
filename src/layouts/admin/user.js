@@ -18,6 +18,7 @@ import PropTypes from "prop-types";
 
 import axios from "axios";
 
+import { successPopUp, errorPopUp } from "App";
 import { useNavigate } from "react-router-dom";
 
 import MDAvatar from "components/MDAvatar";
@@ -87,12 +88,13 @@ function User(props) {
         .then(res => res.data)
         .then(res => {
           if (res.success) {
-            props.onChange(props.id+"confirm")
-            console.log(res)
-            console.log("confirm user")
+            props.onChange(props.id + "confirm")
+
+            successPopUp("confirm user")
           }
           else {
-            alert(res.msg)
+            // alert(res.msg)
+            errorPopUp(res.msg)
           }
         }
         )
@@ -133,11 +135,20 @@ function User(props) {
             <MDBox mr={1}>
               <MDButton variant="text" color="error" onClick={() => {
                 axios.post(`http://localhost:2400/admin/deleteUser`, { _id: props.id }, { withCredentials: true })
-                  .then((res) => {
-                    props.onChange(props.id+"delete")
 
-                    // navigate("/admin");
-                  })
+                .then(res => res.data)
+                .then(res => {
+                  if (res.success) {
+                    props.onChange(props.id + "confirm")                    
+                    props.onChange(props.id + "delete")
+                    successPopUp("delete user")
+                  }
+                  else {
+                    // alert(res.msg)
+                    errorPopUp(res.msg)
+                  }
+                }
+                )
 
               }}
               >

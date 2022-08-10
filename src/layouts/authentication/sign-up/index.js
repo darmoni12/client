@@ -18,6 +18,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 
+import { successPopUp, errorPopUp } from "App";
 // @mui material components
 import Card from "@mui/material/Card";
 import Checkbox from "@mui/material/Checkbox";
@@ -136,27 +137,30 @@ function Cover() {
                 onClick={() =>
                   confirm
                     ? axios.post(
-                          `http://localhost:2400/register`,
-                          {
-                            username,
-                            password,
-                            email,
-                            firstName,
-                            lastName,
-                          },
-                          { withCredentials: true }
-                        )
-                        .then((res) => res.data)
-                        .then((data) => {
-                          // console.log(data);
-                          if (data.success) {
-                            alert("great!! wait for admin to aprove");
-                            navigate("/home");
-                          } else {
-                            alert(data.msg);
-                          }
-                        })
-                    : alert("you need to confirm")
+                      `http://localhost:2400/register`,
+                      {
+                        username,
+                        password,
+                        email,
+                        firstName,
+                        lastName,
+                      },
+                      { withCredentials: true }
+                    )
+                      .then((res) => res.data)
+                      .then((data) => {
+                        // console.log(data);
+                        if (data.success) {
+                          // alert("great!! wait for admin to aprove");
+                          successPopUp("request to register")
+                          navigate("/home");
+                        } else {
+                          // alert(data.msg);
+                          errorPopUp(data.msg)
+                        }
+                      })
+                    // : alert("you need to confirm")
+                    : errorPopUp("you need to confirm")
                 }
               >
                 sign up

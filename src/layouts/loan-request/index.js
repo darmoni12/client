@@ -14,6 +14,7 @@ Coded by www.creative-tim.com
 */
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { successPopUp, errorPopUp } from "App";
 
 
 import TextField from '@mui/material/TextField';
@@ -131,10 +132,17 @@ function Basic() {
                                         },
                                         { withCredentials: true }
                                     )
-                                        // .then((res) => res.data)
-                                        .then((res) => {
+                                        .then((res) => res.data)
+                                        .then((data) => {
+                                            if (data.success) {
+                                              successPopUp("request loan")
                                             navigate("/home");
-                                        })
+                                            }
+                                            else {
+                                              errorPopUp(data.msg)
+                            
+                                            }
+                                          })
 
                                 }
                                 }

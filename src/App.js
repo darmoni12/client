@@ -136,7 +136,7 @@ export default function App() {
     socket.on('success', (message) => {
       if (forMe(message.dst)) {
         openSuccessSB(message)
-        saveAlert(message,"success",'succscses')
+        saveAlert(message,"success",'success')
       }
     })
 

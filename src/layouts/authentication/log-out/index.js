@@ -35,16 +35,22 @@ import { successPopUp, errorPopUp } from "App";
 
 function Billing() {
   const navigate = useNavigate();
-  axios(`http://localhost:2400/logout`,{ withCredentials: true })
-  .then((res) => {
-
-    successPopUp("log out")
-      navigate("/home");
-  })
+  axios(`http://localhost:2400/logout`, { withCredentials: true })
+    .then(res => res.data)
+    .then(res => {
+      if (res.success) {
+        successPopUp("log out")
+        navigate("/home");
+      }
+      else {
+        errorPopUp(res.msg)
+      }
+    }
+    )
   return (
     <DashboardLayout>
       <DashboardNavbar absolute isMini />
-      
+
       <Footer />
     </DashboardLayout>
   );

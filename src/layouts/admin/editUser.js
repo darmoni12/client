@@ -18,6 +18,8 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 
+import { successPopUp, errorPopUp } from "App";
+
 // @mui material components
 import Card from "@mui/material/Card";
 // import Checkbox from "@mui/material/Checkbox";
@@ -36,7 +38,7 @@ import bgImage from "assets/images/bg-sign-up-cover.jpeg";
 
 function Cover() {
     const navigate = useNavigate();
-    const temp =useLocation();
+    const temp = useLocation();
     const props = useLocation().state;
     // console.log("edit user", props)
     const [username, setusername] = useState(props.username);
@@ -125,11 +127,16 @@ function Cover() {
                                         },
                                         { withCredentials: true }
                                     )
-                                        // .then((res) => res.data)
-                                        .then((data) => {
-                                            navigate("/admin")
+                                        .then(res => res.data)
+                                        .then(res => {
+                                            if (res.success) {
+                                                successPopUp("update user")
+                                                navigate("/admin")
+                                            }
+                                            else {
+                                                errorPopUp(res.msg)
+                                            }
                                         })
-
                                 }
                                 }
 

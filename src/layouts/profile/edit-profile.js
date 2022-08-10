@@ -17,6 +17,7 @@ Coded by www.creative-tim.com
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
+import { successPopUp, errorPopUp } from "App";
 
 // @mui material components
 import Card from "@mui/material/Card";
@@ -125,12 +126,17 @@ function Cover() {
                                         details,
                                         { withCredentials: true }
                                     )
-                                        // .then((res) => res.data)
+                                        .then(res => res.data)
                                         .then((data) => {
+                                          if (data.success) {
+                                            successPopUp("update details")
                                             store.dispatch({type:"edit profile",details})
                                             navigate("/profile")
+                                          }
+                                          else {
+                                            errorPopUp(data.msg)
+                                          }
                                         })
-
                                 }
                                 }
 
