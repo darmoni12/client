@@ -18,6 +18,12 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 
+
+// Material Dashboard 2 React example components
+import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
+import DashboardNavbar from "examples/Navbars/DashboardNavbar";
+import Footer from "examples/Footer";
+
 import { successPopUp, errorPopUp } from "App";
 
 // @mui material components
@@ -48,7 +54,8 @@ function Cover() {
     const [image, setImage] = useState(props.image);
 
     return (
-        <CoverLayout image={bgImage}>
+        <DashboardLayout>
+          <DashboardNavbar/>
             <Card>
                 <MDBox
                     variant="gradient"
@@ -151,7 +158,8 @@ function Cover() {
                     </MDBox>
                 </MDBox>
             </Card>
-        </CoverLayout>
+      <Footer />
+    </DashboardLayout>
     );
 }
 

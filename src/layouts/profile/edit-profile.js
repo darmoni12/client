@@ -34,6 +34,11 @@ import CoverLayout from "layouts/authentication/components/CoverLayout";
 // Images
 import bgImage from "assets/images/bg-sign-up-cover.jpeg";
 
+// Material Dashboard 2 React example components
+import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
+import DashboardNavbar from "examples/Navbars/DashboardNavbar";
+import Footer from "examples/Footer";
+
 import store from "store";
 
 function Cover() {
@@ -48,7 +53,8 @@ function Cover() {
 
 
     return (
-        <CoverLayout image={bgImage}>
+        <DashboardLayout>
+          <DashboardNavbar/>
             <Card>
                 <MDBox
                     variant="gradient"
@@ -152,7 +158,8 @@ function Cover() {
                     </MDBox>
                 </MDBox>
             </Card>
-        </CoverLayout>
+      <Footer />
+    </DashboardLayout>
     );
 }
 
