@@ -145,9 +145,9 @@ export default function Data({ username }) {
 
   useEffect(() => {
     socket.on('loan', (message) => {
-      if (forMe(message.dst)) {
+      // if (forMe(message.dst)) {
         setLoanUpdate(message.date)
-      }
+      // }
     })
   }, []);
 
