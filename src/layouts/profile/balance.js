@@ -54,15 +54,15 @@ export default function Balance() {
       }, []);
       
 
-    //   useEffect(() => {
-    //     axios("http://localhost:2400/user/getAmountInILS", {
-    //       withCredentials: true,
-    //     })
-    //     .then(res => res.data.msg)
-    //     .then((res) => {
-    //       setAmountInILS(`${res} ₪`)
-    //     });
-    //   }, []);
+      useEffect(() => {
+        axios("http://localhost:2400/user/getAmountInILS", {
+          withCredentials: true,
+        })
+        .then(res => res.data.msg)
+        .then((res) => {
+          setAmountInILS(`${res} ₪`)
+        });
+      }, []);
 
     return (
             <MDBox py={3}>
