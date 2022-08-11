@@ -21,6 +21,7 @@ import { successPopUp, errorPopUp } from "App";
 
 // @mui material components
 import Card from "@mui/material/Card";
+import Grid from "@mui/material/Grid";
 import MDTypography from "components/MDTypography";
 // import Checkbox from "@mui/material/Checkbox";
 
@@ -51,11 +52,12 @@ function Cover() {
     const [lastName, setlastName] = useState(props.lastName);
     const [image, setImage] = useState(props.image);
 
-
     return (
         <DashboardLayout>
-          <DashboardNavbar/>
-            <Card>
+        <DashboardNavbar/>
+        <MDBox mb={2}/>
+        <Grid container spacing={0} justifyContent="center" alignItems="center">
+            <Card sx={{ width: 380, height:550}}>
                 <MDBox
                     variant="gradient"
                     bgColor="info"
@@ -66,7 +68,7 @@ function Cover() {
                     mt={-3}
                     p={3}
                     mb={1}
-                    textAlign="center"
+                    // textAlign="center"
                 >
                 <MDTypography variant="h6" fontWeight="medium" color="white" mt={0}>
                     edit profile
@@ -120,11 +122,11 @@ function Cover() {
                                 fullWidth
                             />
                         </MDBox>
-                        <MDBox mt={4} mb={1}>
+                        <MDBox mt={15} mb={1}>
                             <MDButton
                                 variant="gradient"
                                 color="info"
-                                fullWidth
+                                // fullWidth
                                 onClick={() => {
                                     const details={
                                         username,
@@ -150,7 +152,6 @@ function Cover() {
                                         })
                                 }
                                 }
-
                             >
                                 change
                             </MDButton>
@@ -158,6 +159,8 @@ function Cover() {
                     </MDBox>
                 </MDBox>
             </Card>
+            </Grid>
+            <Grid pt={13}/>
       <Footer />
     </DashboardLayout>
     );
