@@ -27,27 +27,51 @@ import MDTypography from "components/MDTypography";
 // Billing page components
 import Transaction from "layouts/billing/components/Transaction";
 import { useState, useEffect } from "react";
+import { socket, forMe } from "App"
 
 function Transactions() {
-  // let transactions;
   const [transactions, setTransactions] = useState([]);
+  const [transactionUpdate, setTransactionUpdate] = useState(true);
+  
   useEffect(() => {
-
+    console.log("h")
     axios("http://localhost:2400/user/getUserTransactions", { withCredentials: true }).then((res) => {
-      setTransactions(res.data.msg.reverse());
+      const temp = res.data.msg.reverse()
+      setTransactions(temp.map((x) => (
+        <Transaction
+          color={x.amount < 0 ? "error" : "success"}
+          icon={x.amount < 0 ? "expand_more" : "expand_less"}
+          name={x.member}
+          description={x.info}
+          date={x.date}
+          value={`${x.amount} $`}
+        />
+      ))
+      );
     });
 
+  }, [transactionUpdate]);
+  // const showtransactions = transactions.map((x) => (
+  //   <Transaction
+  //     color={x.amount < 0 ? "error" : "success"}
+  //     icon={x.amount < 0 ? "expand_more" : "expand_less"}
+  //     name={x.member}
+  //     description={x.info}
+  //     date={x.date}
+  //     value={`${x.amount} $`}
+  //   />
+  // ));
+
+
+  useEffect(() => {
+    socket.on('transaction', (message) => {
+      if (forMe(message.dst)) {
+        setTransactionUpdate(!transactionUpdate)
+      }
+    })
+
   }, []);
-  const showtransactions = transactions.map((x) => (
-    <Transaction
-      color={x.amount < 0 ? "error" : "success"}
-      icon={x.amount < 0 ? "expand_more" : "expand_less"}
-      name={x.member}
-      description={x.info}
-      date={x.date}
-      value={`${x.amount} $`}
-    />
-  ));
+
   return (
     <Card sx={{ height: "100%" }}>
       <MDBox display="flex" justifyContent="space-between" alignItems="center" pt={3} px={2}>
@@ -64,7 +88,7 @@ function Transactions() {
           m={0}
           sx={{ listStyle: "none" }}
         >
-          {showtransactions}
+          {transactions}
         </MDBox>
       </MDBox>
     </Card>

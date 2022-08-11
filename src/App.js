@@ -72,6 +72,8 @@ export default function App() {
   const [infoSB, setInfoSB] = useState(false);
   const [warningSB, setWarningSB] = useState(false);
   const [errorSB, setErrorSB] = useState(false);
+  const [loanSB, setLoanSB] = useState(false);
+  const [transactionSB, setTransactionSB] = useState(false);
 
   const openSuccessSB = (message) => {
     setSuccessSB(true);
@@ -88,14 +90,24 @@ export default function App() {
     setLastPong(message)
   }
   const closeWarningSB = () => setWarningSB(false);
+
   const openErrorSB = (message) => {
     setErrorSB(true);
     setLastPong(message)
   }
   const closeErrorSB = () => setErrorSB(false);
 
+  const openLoanSB = (message) => {
+    setLoanSB(true);
+    setLastPong(message)
+  }
+  const closeLoanSB = () => setLoanSB(false);
 
-
+  const openTransactionSB = (message) => {
+    setTransactionSB(true);
+    setLastPong(message)
+  }
+  const closeTransactionSB = () => setTransactionSB(false);
 
   const [isConnected, setIsConnected] = useState(socket.connected);
   const [lastPong, setLastPong] = useState(null);
@@ -146,15 +158,29 @@ export default function App() {
         saveAlert(message,"error",'error')
       }
     })
+    socket.on('loan', (message) => {
+      console.log("loan",message)
+      if (forMe(message.dst)) {
+        openLoanSB(message)
+        saveAlert(message,"loan",'secondery')
+      }
+    })
+    socket.on('transaction', (message) => {
+      console.log("transaction",message)
+      if (forMe(message.dst)) {
+        openTransactionSB(message)
+        saveAlert(message,"transaction",'primary')
+      }
+    })
 
-    return () => {
-      socket.off('connect');
-      socket.off('disconnect');
-      socket.off('balance');
-      socket.off('message');
-      socket.off('success');
-      socket.off('error');
-    };
+    // return () => {
+    //   socket.off('connect');
+    //   socket.off('disconnect');
+    //   socket.off('balance');
+    //   socket.off('message');
+    //   socket.off('success');
+    //   socket.off('error');
+    // };
   }, []);
 
 
@@ -202,7 +228,7 @@ export default function App() {
       icon="check"
       title="success"
       content={lastPong ? lastPong.text : ""}
-      dateTime={lastPong ? (lastPong.date ? lastPong.date.split(" ").slice(1, 5).toString():"now") : "now"}
+      dateTime={lastPong ? (lastPong.date ? lastPong.date.split(" ").slice(1, 5).toString().replaceAll(",", "-"):"now") : "now"}
       open={successSB}
       onClose={closeSuccessSB}
       close={closeSuccessSB}
@@ -214,7 +240,7 @@ export default function App() {
       icon="notifications"
       title="new message"
       content={lastPong ? lastPong.text : ""}
-      dateTime={lastPong ? (lastPong.date ? lastPong.date.split(" ").slice(1, 5).toString():"now") : "now"}
+      dateTime={lastPong ? (lastPong.date ? lastPong.date.split(" ").slice(1, 5).toString().replaceAll(",", "-"):"now") : "now"}
       open={infoSB}
       onClose={closeInfoSB}
       close={closeInfoSB}
@@ -228,7 +254,7 @@ export default function App() {
       icon="star"
       title="warning"
       content={lastPong ? lastPong.text : ""}
-      dateTime={lastPong ? (lastPong.date ? lastPong.date.split(" ").slice(1, 5).toString():"now") : "now"}
+      dateTime={lastPong ? (lastPong.date ? lastPong.date.split(" ").slice(1, 5).toString().replaceAll(",", "-"):"now") : "now"}
       open={warningSB}
       onClose={closeWarningSB}
       close={closeWarningSB}
@@ -243,10 +269,38 @@ export default function App() {
       icon="warning"
       title="error"
       content={lastPong ? lastPong.text : ""}
-      dateTime={lastPong ? (lastPong.date ? lastPong.date.split(" ").slice(1, 5).toString():"now") : "now"}
+      dateTime={lastPong ? (lastPong.date ? lastPong.date.split(" ").slice(1, 5).toString().replaceAll(",", "-"):"now") : "now"}
       open={errorSB}
       onClose={closeErrorSB}
       close={closeErrorSB}
+    />
+  );
+  const renderLoanSB = (
+
+    
+    <MDSnackbar
+      color="secondary"
+      icon="send"
+      title="Loan update"
+      content={lastPong ? lastPong.text : ""}
+      dateTime={lastPong ? (lastPong.date ? lastPong.date.split(" ").slice(1, 5).toString().replaceAll(",", "-"):"now") : "now"}
+      open={loanSB}
+      onClose={closeLoanSB}
+      close={closeLoanSB}
+    />
+  );
+  const renderTransactionSB = (
+
+    
+    <MDSnackbar
+      color="primary"
+      icon="warning"
+      title="transaction update"
+      content={lastPong ? lastPong.text : ""}
+      dateTime={lastPong ? (lastPong.date ? lastPong.date.split(" ").slice(1, 5).toString().replaceAll(",", "-"):"now") : "now"}
+      open={transactionSB}
+      onClose={closeTransactionSB}
+      close={closeTransactionSB}
     />
   );
   // Open sidenav when mouse enter on mini sidenav
@@ -367,6 +421,14 @@ export default function App() {
           <Grid item xs={12} sm={6} lg={3}>
 
             {renderErrorSB}
+          </Grid>
+          <Grid item xs={12} sm={6} lg={3}>
+
+            {renderLoanSB}
+          </Grid>
+          <Grid item xs={12} sm={6} lg={3}>
+
+            {renderTransactionSB}
           </Grid>
         </Grid>
       </MDBox>

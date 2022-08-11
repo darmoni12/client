@@ -19,6 +19,7 @@ Coded by www.creative-tim.com
 import MDBadge from "components/MDBadge";
 import { successPopUp, errorPopUp } from "App";
 
+import { socket, forMe } from "App"
 
 import axios from "axios";
 import MDButton from "components/MDButton";
@@ -67,6 +68,8 @@ function getStatus(x) {
 
 export default function Data({ username }) {
   const [loans, setLoans] = useState([])
+  const [loanUpdate, setLoanUpdate] = useState(true)
+
   // {
   //   "_id": "62e92308651038453dd56e11",
   //   "info": "i am the admin, please help !",
@@ -116,6 +119,14 @@ export default function Data({ username }) {
         console.log(res)
         setLoans(res)
       });
+  }, [loanUpdate]);
+
+  useEffect(() => {
+    socket.on('loan', (message) => {
+      if (forMe(message.dst)) {
+        setLoanUpdate(!loanUpdate)
+      }
+    })
   }, []);
 
   return {
