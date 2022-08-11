@@ -19,6 +19,7 @@ import { successPopUp, errorPopUp } from "App";
 
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
+import Grid from "@mui/material/Grid";
 
 // react-router-dom components
 import { Link, useNavigate } from "react-router-dom";
@@ -62,19 +63,24 @@ function Basic() {
         
     <DashboardLayout>
     <DashboardNavbar/>
-            <Card>
+    <MDBox mb={2}/>
+        <Grid container spacing={0} justifyContent="center" alignItems="center">
+            <Card sx={{ width: 380, height:500}}>
                 <MDBox
                     variant="gradient"
                     bgColor="info"
                     borderRadius="lg"
                     coloredShadow="info"
-                    mx={2}
-                    mt={-3}
+                    // mx={2}
+                    mx={"auto"}
+                    mt={3}
                     p={2}
                     mb={1}
-                    textAlign="center"
+                    // xl={"100%"}
+                    // textAlign="center"
+                    // textAlign="left"
                 >
-                    <MDTypography variant="h4" fontWeight="medium" color="white" mt={1}>
+                    <MDTypography variant="h4" fontWeight="medium" color="white" mt={0}>
                         send money
                     </MDTypography>
                 </MDBox>
@@ -92,6 +98,7 @@ function Basic() {
                             <MDInput
                                 type="text"
                                 label="info"
+                                // sx={{ width: 300 }}
                                 onChange={(event) => setInfo(event.target.value)}
                                 fullWidth
                             />
@@ -104,17 +111,17 @@ function Basic() {
                                 onChange={(event, newValue) => {
                                     setSendTo(newValue._id);
                                 }}
-                                sx={{ width: 300 }}
+                                // sx={{ width: 300 }}
                                 renderInput={(params) => <TextField {...params} label="User to send" />}
                             />
 
                         </MDBox>
 
-                        <MDBox mt={4} mb={1}>
+                        <MDBox mt={15} mb={1}>
                             <MDButton
                                 variant="gradient"
                                 color="info"
-                                fullWidth
+                                // fullWidth
                                 onClick={() => {
                                     // console.log(amount, sendTo);
                                     axios.post(
@@ -149,7 +156,9 @@ function Basic() {
             </Card>
             
         {/* </BasicLayout > */}
-      <Footer />
+        </Grid>
+        <Grid pt={13}/>
+      <Footer/>
     </DashboardLayout>
     );
 }

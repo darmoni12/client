@@ -20,6 +20,7 @@ import Divider from "@mui/material/Divider";
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
+import Card from "@mui/material/Card";
 
 // Material Dashboard 2 React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
@@ -54,13 +55,14 @@ function Overview() {
       <Header>
 
 
-      <MDBox >
-
-        <MDBox mt={5} mb={3}>
-          <Grid container spacing={1}>
-            <Grid item xs={12} md={6} xl={20} sx={{ display: "flex" }}>
+      <MDBox mb={2}>
+      <Grid justifyContent="center" alignItems="center">
+        <Card>
+        <MDBox mt={5} mb={3} >
+          <Grid container spacing={0}>
+            <Grid item xs={12} md={6} xl={20} sx={{ display: "block" }}>
               {/* <Divider orientation="vertical" sx={{ ml: -2, mr: 1 }} alignItems="center"  /> */}
-              <Divider orientation="horizontal" sx={{ ml: 30, mr: 25 }}/>
+              {/* <Divider orientation="horizontal" sx={{ ml: 30, mr: 25 }}  alignItems="center" /> */}
 
               <ProfileInfoCard
 
@@ -73,13 +75,14 @@ function Overview() {
                 shadow={true}
               />
               {/* <Divider orientation="vertical" sx={{ mx: 0 }} /> */}
-              <Divider orientation="horizontal" sx={{ mx: 10 }} />
+              {/* <Divider orientation="horizontal" sx={{ mx: 10 }} /> */}
             </Grid>
           </Grid>
 
-          </MDBox>
+        </MDBox>
           <Balance/>
-
+        </Card>
+        </Grid>
         </MDBox>
       </Header>
       <Footer />

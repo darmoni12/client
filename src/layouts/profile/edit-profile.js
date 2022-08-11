@@ -21,6 +21,7 @@ import { successPopUp, errorPopUp } from "App";
 
 // @mui material components
 import Card from "@mui/material/Card";
+import MDTypography from "components/MDTypography";
 // import Checkbox from "@mui/material/Checkbox";
 
 // Material Dashboard 2 React components
@@ -54,12 +55,16 @@ function Cover() {
                     bgColor="info"
                     borderRadius="lg"
                     coloredShadow="success"
-                    mx={2}
+                    // mx={2}
+                    mx={"auto"}
                     mt={-3}
                     p={3}
                     mb={1}
                     textAlign="center"
                 >
+                <MDTypography variant="h6" fontWeight="medium" color="white" mt={0}>
+                    edit profile
+                </MDTypography>
                 </MDBox>
                 <MDBox pt={4} pb={3} px={3}>
                     <MDBox component="form" role="form">

@@ -55,12 +55,16 @@ function Cover() {
                     bgColor="info"
                     borderRadius="lg"
                     coloredShadow="success"
-                    mx={2}
+                    // mx={2}
+                    mx={"auto"}
                     mt={-3}
                     p={3}
                     mb={1}
                     textAlign="center"
                 >
+                <MDTypography variant="h6" fontWeight="medium" color="white" mt={0}>
+                    edit user profile
+                </MDTypography>
                 </MDBox>
                 <MDBox pt={4} pb={3} px={3}>
                     <MDBox component="form" role="form">

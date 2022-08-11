@@ -59,6 +59,7 @@ function Footer({ company, links }) {
         color="text"
         fontSize={size.sm}
         px={1.5}
+        mt={3}
       >
         &copy; {new Date().getFullYear()}, made with
         <MDBox fontSize={size.md} color="text" mb={-0.5} mx={0.25}>
