@@ -73,7 +73,7 @@ function Basic() {
                     coloredShadow="info"
                     // mx={2}
                     mx={"auto"}
-                    mt={3}
+                    mt={-3}
                     p={2}
                     mb={1}
                     // xl={"100%"}
@@ -114,10 +114,9 @@ function Basic() {
                                 // sx={{ width: 300 }}
                                 renderInput={(params) => <TextField {...params} label="User to send" />}
                             />
-
                         </MDBox>
 
-                        <MDBox mt={15} mb={1}>
+                        <MDBox mt={23} mb={1}>
                             <MDButton
                                 variant="gradient"
                                 color="info"
@@ -143,7 +142,6 @@ function Basic() {
                                         errorPopUp(data.msg)
                                       }
                                     })
-
                                 }
                                 }
                             >

@@ -35,7 +35,7 @@ const statusDict = {
 }
 //["primary","secondary","info","success","warning","","light","dark"].
 
-function getAction(status, loanId) {
+function getAction(status, loanId, setLoanUpdate, loanUpdate) {
   if (status == "confirmed") {
     return (
       <MDButton variant="text" color="info" fullWidth onClick={() => {
@@ -47,7 +47,11 @@ function getAction(status, loanId) {
         )
           .then(res => res.data)
           .then((data) => {
+            var tempRand = Math.random();
+            console.log("rand= ", tempRand);
+            console.log("data= ", data);
             if (data.success) {
+              setLoanUpdate(tempRand)
               successPopUp("repay loan")
             }
             else {
@@ -124,7 +128,7 @@ export default function Data({ username }) {
   useEffect(() => {
     socket.on('loan', (message) => {
       if (forMe(message.dst)) {
-        setLoanUpdate(!loanUpdate)
+        setLoanUpdate(Math.random())
       }
     })
   }, []);
@@ -147,7 +151,7 @@ export default function Data({ username }) {
         // x.dateCreated = x.dateCreated.split(" ").slice(1, 4).toString()
         // x.dateToReturn = x.dateToReturn.split(" ").slice(1, 4).toString()
         x.status = statusDict[temp]
-        x.action = getAction(temp, x._id)
+        x.action = getAction(temp, x._id, setLoanUpdate, loanUpdate)
         // if (x.returnedDate) {
         //   x.returnedDate = x.returnedDate.split(" ").slice(1, 4).toString()
         // }

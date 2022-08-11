@@ -66,7 +66,7 @@ function Transactions() {
   useEffect(() => {
     socket.on('transaction', (message) => {
       if (forMe(message.dst)) {
-        setTransactionUpdate(!transactionUpdate)
+        setTransactionUpdate(message.date)
       }
     })
 

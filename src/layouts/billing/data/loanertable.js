@@ -37,7 +37,7 @@ const statusDict = {
   waitingToConfirm: <MDBadge badgeContent="waiting to confirm" color="secondary" variant="gradient" size="sm" />
 }
 
-function getAction(status, loanId) {
+function getAction(status, loanId, setLoanUpdate, loanUpdate) {
   if (status == "waitingToConfirm") {
     return (
       <MDBox mt={3}>
@@ -52,11 +52,11 @@ function getAction(status, loanId) {
               .then(res => res.data)
               .then((data) => {
                 if (data.success) {
+                  setLoanUpdate(Math.random())
                   successPopUp("confirm loan")
                 }
                 else {
                   errorPopUp(data.msg)
-
                 }
               })
           }} >confirm</MDButton>
@@ -70,11 +70,12 @@ function getAction(status, loanId) {
               .then(res => res.data)
               .then((data) => {
                 if (data.success) {
+                  setLoanUpdate(Math.random())
+                  console.log(data)
                   successPopUp("reject loan")
                 }
                 else {
                   errorPopUp(data.msg)
-
                 }
               })
           }} >reject</MDButton>
@@ -148,7 +149,7 @@ export default function Data({ username }) {
   useEffect(() => {
     socket.on('loan', (message) => {
       if (forMe(message.dst)) {
-        setLoanUpdate(!loanUpdate)
+        setLoanUpdate(Math.random())
       }
     })
   }, []);
@@ -171,7 +172,7 @@ export default function Data({ username }) {
         // x.dateCreated = x.dateCreated.split(" ").slice(1, 4).toString()
         // x.dateToReturn = x.dateToReturn.split(" ").slice(1, 4).toString()
         x.status = statusDict[temp]
-        x.action = getAction(temp, x._id)
+        x.action = getAction(temp, x._id, setLoanUpdate, loanUpdate)
         // if (x.returnedDate) {
         //   x.returnedDate = x.returnedDate.split(" ").slice(1, 4).toString()
         // }

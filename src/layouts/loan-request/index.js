@@ -25,6 +25,7 @@ import { useNavigate } from "react-router-dom";
 // , Redirect
 // @mui material components
 import Card from "@mui/material/Card";
+import Grid from "@mui/material/Grid";
 
 // Material Dashboard 2 React examples
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
@@ -61,19 +62,22 @@ function Basic() {
         
     <DashboardLayout>
     <DashboardNavbar/>
-            <Card>
+    <MDBox mb={2}/>
+        <Grid container spacing={0} justifyContent="center" alignItems="center">
+            <Card sx={{ width: 380, height:500}}>
                 <MDBox
                     variant="gradient"
                     bgColor="info"
                     borderRadius="lg"
                     coloredShadow="info"
-                    mx={2}
+                    // mx={2}
+                    mx={"auto"}
                     mt={-3}
                     p={2}
                     mb={1}
-                    textAlign="center"
+                    // textAlign="center"
                 >
-                    <MDTypography variant="h4" fontWeight="medium" color="white" mt={1}>
+                    <MDTypography variant="h4" fontWeight="medium" color="white" mt={0}>
                         requst loan
                     </MDTypography>
                 </MDBox>
@@ -104,17 +108,16 @@ function Basic() {
                                     setAskFor(newValue._id);
                                 }}
                                 fullWidth
-                                sx={{ width: 300 }}
+                                // sx={{ width: 300 }}
                                 renderInput={(params) => <TextField {...params} label="ask from" />}
                             />
-
                         </MDBox>
 
-                        <MDBox mt={4} mb={1}>
+                        <MDBox mt={23} mb={1}>
                             <MDButton
                                 variant="gradient"
                                 color="info"
-                                fullWidth
+                                // fullWidth
                                 onClick={() => {
                                     // console.log(amount, askFor);
                                     axios.post(
@@ -137,7 +140,6 @@ function Basic() {
                             
                                             }
                                           })
-
                                 }
                                 }
                             >
@@ -149,6 +151,8 @@ function Basic() {
                 </MDBox>
             </Card>
         {/* </BasicLayout > */}
+        </Grid>
+        <Grid pt={13}/>
       <Footer />
     </DashboardLayout>
     );
