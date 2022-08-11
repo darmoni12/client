@@ -49,11 +49,11 @@ export const socket = socketIOClient('localhost:2400');
 
 
 export function errorPopUp(text){
-  socket.emit('error', { dst: store.getState().user._id, text:"The "+text+" operation was successful"})
+  socket.emit('error', { dst: store.getState().user._id, text:text} )
 }
 
 export function successPopUp(text){
-  socket.emit('success', { dst: store.getState().user._id, text:text})
+  socket.emit('success', { dst: store.getState().user._id, text:"The "+text+" operation was successful"})
 }
 
 export function forMe(dst) {
@@ -142,7 +142,7 @@ export default function App() {
 
     socket.on('error', (message) => {
       if (forMe(message.dst)) {
-        openSuccessSB(message)
+        openErrorSB(message)
         saveAlert(message,"error",'error')
       }
     })
@@ -350,13 +350,6 @@ export default function App() {
         <Route path="*" element={<Navigate to="/dashboard" />} />
       </Routes>
 
-      {/* <MDBox p={2}>
-        <Grid container spacing={3}>
-          <Grid item xs={12} sm={6} lg={3}>
-            {renderInfoSB}
-          </Grid>
-        </Grid>
-      </MDBox> */}
       <MDBox p={2}>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6} lg={3}>
