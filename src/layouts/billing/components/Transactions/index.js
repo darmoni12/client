@@ -34,7 +34,7 @@ function Transactions() {
   useEffect(() => {
 
     axios("http://localhost:2400/user/getUserTransactions", { withCredentials: true }).then((res) => {
-      setTransactions(res.data.msg);
+      setTransactions(res.data.msg.reverse());
     });
 
   }, []);

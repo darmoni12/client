@@ -36,21 +36,21 @@ function Notifications() {
 
   const alertContent = (alert) => (
     <MDTypography variant="body2" color="white">
-    <MDTypography component="a" href="#" variant="body2" fontWeight="medium" color="white">
-      {alert.title}
-      <br></br>
-    </MDTypography>
+      <MDTypography component="a" href="#" variant="body2" fontWeight="medium" color="white">
+        {alert.title}
+        <br></br>
+      </MDTypography>
       {alert.text}
       <br></br>
       {alert.date}
-  </MDTypography>
+    </MDTypography>
   );
-    console.log(store.getState().alerts)
-  const lst = store.getState().alerts.map(x=><MDAlert color={x.color} dismissible>
-                   {/* {x.title +": "+x.text} */}
-                   {alertContent(x)}
-                 </MDAlert>)
-                 //"primary""secondary""success""error" "warning""info" "light""dark"
+  console.log(store.getState().alerts)
+  const lst = store.getState().alerts.reverse().map(x => <MDAlert color={x.color} dismissible>
+    {/* {x.title +": "+x.text} */}
+    {alertContent(x)}
+  </MDAlert>)
+  //"primary""secondary""success""error" "warning""info" "light""dark"
 
 
 
@@ -63,7 +63,7 @@ function Notifications() {
           <Grid item xs={12} lg={8}>
             <Card>
               <MDBox p={2}>
-                <MDTypography variant="h5">Alerts</MDTypography>
+                <MDTypography variant="h5">notifications</MDTypography>
               </MDBox>
               <MDBox pt={2} px={2}>
                 {lst}

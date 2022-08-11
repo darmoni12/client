@@ -134,7 +134,6 @@ function Basic() {
                     .then((res) => res.data)
                     .then((res) => {
                       if (res.success) {
-                        successPopUp("sign in")
                         navigate("/home");
                       } else {
                         errorPopUp("username or password is wrong")

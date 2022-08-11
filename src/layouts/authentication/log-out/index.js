@@ -39,7 +39,6 @@ function Billing() {
     .then(res => res.data)
     .then(res => {
       if (res.success) {
-        successPopUp("log out")
         navigate("/home");
       }
       else {
