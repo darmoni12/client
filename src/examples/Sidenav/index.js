@@ -179,7 +179,7 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
         }
       />
       <List>{renderRoutes}</List>
-      <MDBox p={2} mt="auto">
+      <MDBox p={1} mt="auto">
         <MDButton
           component="a"
           href="https://levnet.jct.ac.il/Login/Login.aspx"
@@ -193,7 +193,7 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
         </MDButton>
       </MDBox>
 
-      <MDBox p={2} >
+      <MDBox p={1} >
         <MDButton
           component="a"
           href="https://moodle.jct.ac.il/"

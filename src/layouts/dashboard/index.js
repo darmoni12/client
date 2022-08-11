@@ -36,7 +36,6 @@ import axios from "axios";
 import Projects from "layouts/dashboard/components/Projects";
 import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
 import { useState, useEffect } from "react";
-// import { useEffect } from "react";
 
 async function getDateFunc()
 {
@@ -89,9 +88,6 @@ function Dashboard() {
     getDateFunc()
       .then((res) => {
         setCurrentDate(currentDate.concat(new Date().toString().split(" ").slice(1, 5).toString().replaceAll(",", " - ")))
-        // setCurrentDate(currentDate = new Date().toString().split(" ").slice(1, 5).toString().replaceAll(",", " - "))
-        // setCurrentDate(currentDate.concat({m:new Date().toString()} ))
-        // console.log("\nhereeeee4: ", currentDate)
       });
   }, []);
   return (

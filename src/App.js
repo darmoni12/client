@@ -251,7 +251,7 @@ export default function App() {
   );
   // Open sidenav when mouse enter on mini sidenav
   const handleOnMouseEnter = () => {
-    if (miniSidenav && !onMouseEnter) {
+    if (true || (miniSidenav && !onMouseEnter)) {
       setMiniSidenav(dispatch, false);
       setOnMouseEnter(true);
     }

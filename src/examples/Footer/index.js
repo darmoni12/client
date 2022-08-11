@@ -66,7 +66,7 @@ function Footer({ company, links }) {
             favorite
           </Icon>
         </MDBox>
-        by - Royi Alishayev & Idan Darmoni & Mataniya goharian
+        by - Royi Alishayev & Idan Darmoni & Mataniya Goharian
       </MDBox>
       <MDBox
         component="ul"

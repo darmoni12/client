@@ -1,7 +1,7 @@
 {
   "name": "bank-client",
   "version": "1.0.0",
-  "author": "Idan Darmoni, Royi Alishayev & Matanya Goharyan",
+  "author": " Royi Alishayev, Idan Darmoni & Matanya Goharyan",
   "engines": {
     "node": "14 || 15 || 16",
     "npm": ">=6"

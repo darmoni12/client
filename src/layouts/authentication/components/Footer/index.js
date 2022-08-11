@@ -56,15 +56,9 @@ function Footer({ light }) {
                 favorite
               </Icon>
             </MDBox>
-            by
-            <Link href="https://www.creative-tim.com/" target="_blank">
-              <MDTypography variant="button" fontWeight="medium" color={light ? "white" : "dark"}>
-                &nbsp;Creative Tim&nbsp;
-              </MDTypography>
-            </Link>
-            for a better web.
+            by - Royi Alishayev & Idan Darmoni & Mataniya Goharian
           </MDBox>
-          <MDBox
+          {/* <MDBox
             component="ul"
             sx={({ breakpoints }) => ({
               display: "flex",
@@ -125,7 +119,7 @@ function Footer({ light }) {
                 </MDTypography>
               </Link>
             </MDBox>
-          </MDBox>
+          </MDBox> */}
         </MDBox>
       </Container>
     </MDBox>
