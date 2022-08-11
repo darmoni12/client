@@ -333,7 +333,7 @@ export default function App() {
           <Sidenav
             color={sidenavColor}
             brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
-            brandName="Our Bank"
+            brandName="best cryptoBank"
             routes={temp()}
             onMouseEnter={handleOnMouseEnter}
             onMouseLeave={handleOnMouseLeave}

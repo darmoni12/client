@@ -172,7 +172,7 @@ export const adminRoutes = [
     type: "collapse",
     name: "admin",
     key: "admin",
-    icon: <Icon fontSize="small">admin</Icon>,
+    icon: <Icon fontSize="small">work</Icon>,
     route: "/admin",
     component: <Admin />,
   },

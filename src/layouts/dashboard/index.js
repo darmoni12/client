@@ -38,9 +38,15 @@ import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
 import { useState, useEffect } from "react";
 // import { useEffect } from "react";
 
+async function getDateFunc()
+{
+  return new Date();
+}
+
 function Dashboard() {
   const [usersAmount, setUsersAmount] = useState("");
   const [yearChart, setYearChart] = useState({});
+  const [currentDate, setCurrentDate] = useState([]);
   const [monthChart, setMonthChart] = useState({});
   const [weekChart, setWeekChart] = useState({});
   useEffect(() => {
@@ -79,6 +85,15 @@ function Dashboard() {
         setWeekChart(res)
       });
   }, []);
+  useEffect(() => {
+    getDateFunc()
+      .then((res) => {
+        setCurrentDate(currentDate.concat(new Date().toString().split(" ").slice(1, 5).toString().replaceAll(",", " - ")))
+        // setCurrentDate(currentDate = new Date().toString().split(" ").slice(1, 5).toString().replaceAll(",", " - "))
+        // setCurrentDate(currentDate.concat({m:new Date().toString()} ))
+        // console.log("\nhereeeee4: ", currentDate)
+      });
+  }, []);
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -91,7 +106,8 @@ function Dashboard() {
                   color="info"
                   title="last period"
                   description="Last 12 monthly profit"
-                  date="just update"
+                  // date="just update"
+                  date={currentDate}
                   chart={yearChart}
                 />
               </MDBox>
@@ -102,7 +118,8 @@ function Dashboard() {
                   color="success"
                   title="last month"
                   description="your last month daily profit"
-                  date="just update"
+                  // date="just update"
+                  date={currentDate}
                   chart={monthChart}
                 />
               </MDBox>
@@ -113,7 +130,8 @@ function Dashboard() {
                   color="dark"
                   title="last week"
                   description="your last week daily profit"
-                  date="just updated"
+                  // date="just updated"
+                  date={currentDate}
                   chart={weekChart}
                 />
               </MDBox>
